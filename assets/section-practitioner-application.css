@@ -40,7 +40,6 @@
 
 .practitioner-application__panel--form {
   background-color: var(--color-secondary);
-  align-items: flex-start;
   padding-top: var(--padding-9);
   padding-bottom: var(--padding-9);
 }
@@ -284,26 +283,71 @@
 }
 
 .practitioner-application__success {
-  padding: var(--padding-7);
-  background-color: var(--color-border);
-  border: 1px solid var(--color-success);
-  border-radius: var(--radius-md);
-  color: var(--color-text-secondary);
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--padding-5);
+  color: var(--color-text-primary);
   font-family: var(--font-body-family);
 }
 
-.practitioner-application__success-title {
-  margin: 0 0 var(--padding-3) 0;
-  font-family: var(--font-heading-family);
-  font-weight: 700;
-  font-size: var(--type-h3);
-  color: var(--color-text-secondary);
+.practitioner-application__success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  background-color: var(--color-border);
+  color: var(--color-accent);
+  border-radius: 50%;
+  margin-bottom: var(--padding-3);
 }
 
-.practitioner-application__success p {
+.practitioner-application__success-icon svg {
+  width: 36px;
+  height: 36px;
+}
+
+.practitioner-application__success-title {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-weight: 700;
+  font-size: var(--type-h1);
+  color: var(--color-text-primary);
+  line-height: 1.1;
+}
+
+.practitioner-application__success-body {
   margin: 0;
   font-size: var(--type-body);
   line-height: 1.5;
+  color: var(--color-text-primary);
+  opacity: 0.8;
+  max-width: 380px;
+}
+
+.practitioner-application__success-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-2);
+  margin-top: var(--padding-4);
+  padding: var(--padding-3) 0;
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.15s ease;
+}
+
+.practitioner-application__success-cta:hover,
+.practitioner-application__success-cta:focus-visible {
+  border-bottom-color: var(--color-accent);
+  outline: none;
 }
 
 @media screen and (max-width: 749px) {

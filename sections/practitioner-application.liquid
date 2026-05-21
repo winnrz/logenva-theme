@@ -26,25 +26,33 @@
   </div>
 
   <div class="practitioner-application__panel practitioner-application__panel--form">
-    <div class="practitioner-application__form-wrap">
-      <header class="practitioner-application__header">
-        <h1 class="practitioner-application__title">Practitioner Application</h1>
-        <p class="practitioner-application__lead">
-          We&rsquo;ll review your credentials and email you once your application has been approved.
-        </p>
-      </header>
-
-      {%- form 'contact', id: 'practitioner-application-form', enctype: 'multipart/form-data' -%}
-        {%- if form.posted_successfully? -%}
-          <div class="practitioner-application__success" role="status">
-            <h2 class="practitioner-application__success-title">Application received</h2>
-            <p>
-              Thanks for applying. We&rsquo;ll review your credentials and email you
-              once your application has been approved. This usually takes 1&ndash;2
-              working days.
+    {%- form 'contact', id: 'practitioner-application-form', enctype: 'multipart/form-data' -%}
+      {%- if form.posted_successfully? -%}
+        <div class="practitioner-application__success" role="status">
+          <span class="practitioner-application__success-icon" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </span>
+          <h1 class="practitioner-application__success-title">Application received</h1>
+          <p class="practitioner-application__success-body">
+            Thanks for applying. We&rsquo;ll review your credentials and email you
+            once your application has been approved. This usually takes 1&ndash;2
+            working days.
+          </p>
+          <a href="/" class="practitioner-application__success-cta">
+            Continue browsing
+            <span aria-hidden="true">&rarr;</span>
+          </a>
+        </div>
+      {%- else -%}
+        <div class="practitioner-application__form-wrap">
+          <header class="practitioner-application__header">
+            <h1 class="practitioner-application__title">Practitioner Application</h1>
+            <p class="practitioner-application__lead">
+              We&rsquo;ll review your credentials and email you once your application has been approved.
             </p>
-          </div>
-        {%- else -%}
+          </header>
           {%- if form.errors -%}
             <div class="practitioner-application__error" role="alert">
               {%- for field in form.errors -%}
@@ -149,9 +157,9 @@
           </div>
 
           <button type="submit" class="practitioner-application__button">Submit application</button>
-        {%- endif -%}
-      {%- endform -%}
-    </div>
+        </div>
+      {%- endif -%}
+    {%- endform -%}
   </div>
 </div>
 
