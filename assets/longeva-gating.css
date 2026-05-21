@@ -1,5 +1,42 @@
 /*
  * Longeva gating styles
- * Applied to gated CTAs (Request Access / Application under review)
- * and any role/approval-state-specific UI. Populated as Day 2/3 work lands.
+ * Used by snippets/gated-cta.liquid wherever price + buy-buttons are gated
+ * for non-approved viewers.
  */
+
+.gated-cta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-3);
+}
+
+.gated-cta__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--padding-4) var(--padding-6);
+  background-color: var(--color-text-secondary);
+  color: var(--color-border);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  border-radius: var(--radius-md);
+  transition: background-color 0.15s ease;
+}
+
+.gated-cta__button:hover,
+.gated-cta__button:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-border);
+  outline: none;
+}
+
+.gated-cta__hint {
+  margin: 0;
+  font-size: var(--type-small);
+  color: var(--color-text-secondary);
+  opacity: 0.75;
+}
+

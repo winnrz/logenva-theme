@@ -1,0 +1,16 @@
+{%- comment -%}
+  Renders the gated CTA shown where price + buy-buttons would normally appear
+  for non-approved viewers. Consumers check `customer.tags contains 'approved'`
+  and render this snippet for the gated branch.
+
+  Accepts:
+    product       - {Product} current product context (optional)
+    block_class   - {String}  optional extra class for the wrapper
+{%- endcomment -%}
+
+<div class="gated-cta {{ block_class }}">
+  <a href="/pages/practitioner-application" class="gated-cta__button">
+    Apply for access
+  </a>
+  <p class="gated-cta__hint">Pricing and ordering available to verified practitioners.</p>
+</div>
