@@ -86,7 +86,7 @@
 }
 
 .practitioner-application__section + .practitioner-application__section {
-  margin-top: var(--padding-3);
+  margin-top: var(--padding-6);
 }
 
 .practitioner-application__section-title {
@@ -116,8 +116,8 @@
   width: 100%;
   padding: var(--padding-4) var(--padding-5);
   background-color: var(--color-secondary);
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-rd);
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-lg);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   color: var(--color-text-primary);
@@ -129,6 +129,26 @@
   border-color: var(--color-accent);
 }
 
+.practitioner-application__select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: var(--padding-8);
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%23B99157' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='1 1 6 6 11 1'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--padding-5) center;
+  background-size: 12px 8px;
+  cursor: pointer;
+}
+
+.practitioner-application__select:invalid {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.practitioner-application__select option {
+  color: var(--color-text-primary);
+}
+
 .practitioner-application__button {
   display: inline-flex;
   align-items: center;
@@ -138,12 +158,12 @@
   background-color: var(--color-text-secondary);
   color: var(--color-secondary);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-rd);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 600;
   cursor: pointer;
-  margin-top: var(--padding-3);
+  margin-top: var(--padding-6);
   transition: background-color 0.15s ease;
 }
 
@@ -165,7 +185,7 @@
   justify-content: center;
   gap: var(--padding-3);
   padding: var(--padding-7) var(--padding-5);
-  border: 1px dashed var(--color-text-secondary);
+  border: 1px dashed var(--color-primary);
   border-radius: var(--radius-md);
   background-color: var(--color-secondary);
   text-align: center;

@@ -30,8 +30,7 @@
       <header class="practitioner-application__header">
         <h1 class="practitioner-application__title">Practitioner Application</h1>
         <p class="practitioner-application__lead">
-          Apply for access to our practitioner-only catalogue. We&rsquo;ll review your
-          credentials and email you once your application has been approved.
+          We&rsquo;ll review your credentials and email you once your application has been approved.
         </p>
       </header>
 
@@ -59,6 +58,7 @@
           {%- endif -%}
 
           <input type="hidden" name="contact[subject]" value="Practitioner Application">
+          <input type="hidden" name="return_to" value="/pages/practitioner-application?contact_posted=true">
 
           <fieldset class="practitioner-application__section">
             <legend class="practitioner-application__section-title">Account details</legend>
@@ -107,14 +107,17 @@
 
             <div class="practitioner-application__field">
               <label for="ApplicationForm-Role" class="practitioner-application__label">Professional role</label>
-              <input
-                type="text"
+              <select
                 name="contact[professional_role]"
                 id="ApplicationForm-Role"
-                class="practitioner-application__input"
-                autocomplete="organization-title"
+                class="practitioner-application__input practitioner-application__select"
                 required
               >
+                <option value="" disabled selected>Select your role</option>
+                <option value="Nurse">Nurse</option>
+                <option value="Doctor">Doctor</option>
+                <option value="Aesthetician">Aesthetician</option>
+              </select>
             </div>
 
             <div class="practitioner-application__field">
