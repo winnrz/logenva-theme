@@ -42,15 +42,49 @@ Nine functional areas: homepage, collection page, product pages, practitioner re
 | Dermal Filler | Practitioner | visible to all | approved only | approved only |
 | Skin Booster | Practitioner | visible to all | approved only | approved only |
 
-User states: **public**, **pending** (post-registration, pre-approval), **approved practitioner**.
+User states: **public** (no account), **approved practitioner** (`customer.tags contains 'approved'`). No in-app `pending` state — see registration flow below for why.
+
+## Current implementation (as of Day 1)
+
+The store runs **Shopify New Customer Accounts** (hosted authentication at `shopify.com/authentication/…`). This means `/account/register` and `/account/login` are **not themable** — Shopify owns those URLs. Don't try to override `sections/main-register.liquid` for branding; it's deprecated for this build. The dev tunnel will 502 on `/account/register` because it can't follow the cross-domain redirect.
+
+The "practitioner registration" of the brief is implemented as a **practitioner application** at `/pages/practitioner-application`:
+
+- `sections/practitioner-application.liquid` — single themed contact form (split-panel brand layout). Captures full name, email, business name, professional role (Nurse/Doctor/Aesthetician select), credentials file. Hides Dawn header/footer via scoped `{% style %}` block.
+- `templates/page.practitioner-application.json` — the section binding. Requires a Shopify Page with handle `practitioner-application` to exist in admin AND the page's Template setting to be `page.practitioner-application`. (Templates only appear in admin once pushed to the published theme — Shopify-GitHub integrated stores need a push to GitHub first.)
+- `assets/practitioner-application.js` — drag-and-drop file UI only. No fetch orchestration.
+- `assets/section-practitioner-application.css` — wizard styling using design tokens.
+- Success state replaces header + form: cream-circle gold-checkmark icon, H1 confirmation, body copy, "Continue browsing" link to `/`. No persistent animations (B2B restraint).
+
+Approval flow is **email-only, manual**:
+1. Applicant submits `/pages/practitioner-application`. Shopify emails the store-owner address with the application content; **no customer record exists yet**.
+2. Admin reviews the email + cert.
+3. If approved, admin manually creates a customer in Shopify admin with the `approved` tag and sends Shopify's standard "set your password" invite.
+4. Applicant follows the invite, sets password via Shopify-hosted flow, logs in via Shopify-hosted login, gated content unlocks immediately because the tag is already on the account.
+
+No `pending` tag is needed (no half-state customers cluttering admin, no mock admin page, single admin action per approval).
+
+### Design tokens
+
+`assets/longeva-tokens.css` is the source of truth for colour, spacing, radii, and the type ramp. CSS custom properties: `--color-{border|primary|secondary|text-primary|text-secondary|accent|error|success}`, `--radius-{sm|md|lg|rd}`, `--padding-1` through `--padding-9`, `--type-{h1|h2|h3|h4|body|small}`. Heading sizes are explicit px (don't scale with Dawn's body_scale slider). Light Dawn schemes (1 cream, 4 white) have `text: #000000` to match the `text-primary` token.
+
+### Typography
+
+Two families:
+- **Owners XWide** (headings) — self-hosted via `@font-face` in `layout/theme.liquid`. Files: `assets/OwnersXWide-Regular.woff2`, `assets/OwnersXWide-Bold.woff2`.
+- **Poppins** (body) — loaded via Shopify's font picker (`type_body_font = poppins_n4`, `type_header_font = poppins_n7`). The heading family is then overridden to Owners XWide in `longeva-tokens.css`.
+
+### Known limitation (Day 2 open)
+
+Shopify's native storefront contact form does **not** reliably deliver file attachments via the notification email. The cert upload field submits and Shopify receives it, but the notification email renders "Certificate: [object Object]" with no attachment. Options for Day 2: (a) replace file upload with a "paste credentials link" text field, (b) keep upload UI and document the limitation in README, (c) hybrid. Decision pending.
 
 ## Gating, approval, VAT — implementation guidance
 
 Prefer **native Shopify primitives** over custom backend: customer tags, metafields, line item properties, cart attributes, Liquid conditionals. The brief explicitly says custom apps/backends are not expected.
 
-- **Approval state** → Shopify customer tags (e.g. `pending`, `approved`). Gate price/buy-buttons/POM templates on `customer.tags contains 'approved'`. Admin approval = adding the tag (mock admin UI or documented manual flow is acceptable).
+- **Approval state** → Shopify customer tags (only `approved` matters; no `pending` tag in this model). Gate price/buy-buttons/POM templates on `customer.tags contains 'approved'`. Admin approval = manually creating the customer with `approved` tag after reviewing the application email.
 - **Practitioner products visibility** vs **POM hidden** — POM (`Botox 50u`) must not appear in collections, navigation, search, or be publicly indexed (regulatory). Use a tag or metafield on the product and filter in `main-collection-product-grid`, `predictive-search`, and add `noindex` in `meta-tags` when the visitor is not approved.
-- **Practitioner products without approval** — show product page but replace price + buy-buttons block with a "Register as Practitioner" / "Request Access" CTA.
+- **Practitioner products without approval** — show product page but replace price + buy-buttons block with a "Request Access" CTA via `snippets/gated-cta.liquid`. The CTA links to `/pages/practitioner-application`, not `/account/register`.
 - **Prescription-linked vs clinic-stock pathway** — selected when an approved practitioner adds a practitioner product to basket. Acceptable mechanisms: product variants, line item properties, cart attributes. Selection drives VAT.
 - **VAT logic** — per line item, conditional on supply pathway. Required scenarios (basket must demonstrate all four):
   1. POM only → 0% (zero-rated)
