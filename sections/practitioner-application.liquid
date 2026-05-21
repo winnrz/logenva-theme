@@ -59,8 +59,8 @@
 
           <input type="hidden" name="contact[subject]" value="Practitioner Application">
 
-          <fieldset class="practitioner-application__section">
-            <legend class="practitioner-application__section-title">Account details</legend>
+          <div class="practitioner-application__section">
+            <h2 class="practitioner-application__section-title">Account details</h2>
 
             <div class="practitioner-application__field">
               <label for="ApplicationForm-Name" class="practitioner-application__label">Full name</label>
@@ -69,6 +69,7 @@
                 name="contact[name]"
                 id="ApplicationForm-Name"
                 class="practitioner-application__input"
+                value="{% if form.name %}{{ form.name }}{% endif %}"
                 autocomplete="name"
                 required
               >
@@ -81,16 +82,17 @@
                 name="contact[email]"
                 id="ApplicationForm-Email"
                 class="practitioner-application__input"
+                value="{% if form.email %}{{ form.email }}{% endif %}"
                 autocomplete="email"
                 spellcheck="false"
                 autocapitalize="off"
                 required
               >
             </div>
-          </fieldset>
+          </div>
 
-          <fieldset class="practitioner-application__section">
-            <legend class="practitioner-application__section-title">Professional information</legend>
+          <div class="practitioner-application__section">
+            <h2 class="practitioner-application__section-title">Professional information</h2>
 
             <div class="practitioner-application__field">
               <label for="ApplicationForm-Business" class="practitioner-application__label">Business name</label>
@@ -144,7 +146,7 @@
                 required
               >
             </div>
-          </fieldset>
+          </div>
 
           <button type="submit" class="practitioner-application__button">Submit application</button>
         {%- endif -%}
