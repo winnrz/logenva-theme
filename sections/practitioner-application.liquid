@@ -1,5 +1,4 @@
 {{ 'section-practitioner-application.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'practitioner-application.js' | asset_url }}" defer="defer"></script>
 
 {%- style -%}
   .shopify-section-group-header-group,
@@ -26,7 +25,7 @@
   </div>
 
   <div class="practitioner-application__panel practitioner-application__panel--form">
-    {%- form 'contact', id: 'practitioner-application-form', enctype: 'multipart/form-data' -%}
+    {%- form 'contact', id: 'practitioner-application-form' -%}
       {%- if form.posted_successfully? -%}
         <div class="practitioner-application__success" role="status">
           <span class="practitioner-application__success-icon" aria-hidden="true">
@@ -130,29 +129,18 @@
             </div>
 
             <div class="practitioner-application__field">
-              <span class="practitioner-application__label">Credentials or proof of qualification</span>
-              <div class="practitioner-application__uploader" data-uploader>
-                <span class="practitioner-application__uploader-icon" aria-hidden="true">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-                    <polyline points="12 11 12 17"></polyline>
-                    <polyline points="9 14 12 11 15 14"></polyline>
-                  </svg>
-                </span>
-                <p class="practitioner-application__uploader-prompt">Select your file or drag and drop</p>
-                <p class="practitioner-application__uploader-hint">.jpg, .png, .pdf, .doc</p>
-                <button type="button" class="practitioner-application__uploader-trigger" data-uploader-trigger>upload</button>
-                <p class="practitioner-application__uploader-filename is-hidden" data-uploader-filename></p>
-              </div>
+              <label for="ApplicationForm-Credentials" class="practitioner-application__label">Credentials</label>
               <input
-                type="file"
-                name="contact[certificate]"
-                id="ApplicationForm-Cert"
-                class="practitioner-application__file-input"
-                data-uploader-input
-                accept=".jpg,.jpeg,.png,.pdf,.doc,.docx"
+                type="text"
+                name="contact[credentials]"
+                id="ApplicationForm-Credentials"
+                class="practitioner-application__input"
+                placeholder="e.g. GMC 1234567"
                 required
               >
+              <p class="practitioner-application__hint">
+                Your GMC, NMC, GDC, or GPhC registration number, or a public URL to your credentials.
+              </p>
             </div>
           </div>
 

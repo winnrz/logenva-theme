@@ -6,14 +6,16 @@
 
 :root {
   /* Colours */
-  --color-border: #F2E6DC;
-  --color-primary: #B99157;
-  --color-secondary: #FFFFFF;
+  --color-border: #9b8979; 
+  --color-border-subtle: #f2e6dc;
+  --color-focus: #a6783c;
+  --color-primary: #b99157;
+  --color-secondary: #ffffff;
   --color-text-primary: #000000;
-  --color-text-secondary: #2D190E;
-  --color-accent: #A6783C;
-  --color-error: #E74C3C;
-  --color-success: #4CAF50;
+  --color-text-secondary: #2d190e;
+  --color-accent: #a6783c;
+  --color-error: #e74c3c;
+  --color-success: #4caf50;
 
   /* Radii */
   --radius-sm: 5px;
@@ -41,8 +43,12 @@
   --type-small: 12px;
 
   /* Font stacks — Poppins comes via Shopify font picker, Owners XWide via @font-face in theme.liquid */
-  --font-heading-family: 'Owners XWide', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
-  --font-body-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
+  --font-heading-family:
+    "Owners XWide", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    sans-serif;
+  --font-body-family:
+    "Poppins", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial,
+    sans-serif;
 }
 
 /* Heading sizes per design spec — px values so they aren't affected by Dawn's body_scale slider */
