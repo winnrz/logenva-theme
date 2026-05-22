@@ -216,7 +216,7 @@
   justify-content: center;
   width: 72px;
   height: 72px;
-  background-color: var(--color-border);
+  background-color: var(--color-border-subtle);
   color: var(--color-accent);
   border-radius: 50%;
   margin-bottom: var(--padding-3);
