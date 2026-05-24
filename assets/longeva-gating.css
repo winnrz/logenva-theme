@@ -297,7 +297,7 @@ main {
   display: block;
   width: 100%;
   padding: var(--padding-3) 0;
-  color: var(--color-accent);
+  color: var(--color-primary);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
@@ -356,7 +356,7 @@ main {
   display: block;
   width: 100%;
   padding: var(--padding-3) 0 0;
-  color: var(--color-accent);
+  color: var(--color-primary);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
