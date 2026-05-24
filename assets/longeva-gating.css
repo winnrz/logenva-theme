@@ -206,7 +206,7 @@ main {
 .product-card-wrapper .product-card__gated-label {
   font-family: var(--font-body-family);
   font-size: var(--type-body);
-  color: var(--color-border);
+  color: var(--color-accent);
   line-height: 1.2;
 }
 
@@ -273,7 +273,7 @@ main {
   gap: var(--padding-2);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
-  color: var(--color-border);
+  color: var(--color-accent);
   line-height: 1.2;
   margin: 0;
 }
