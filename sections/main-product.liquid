@@ -93,7 +93,16 @@
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
-        {% render 'product-media-gallery', variant_images: variant_images %}
+        <div class="product__media-group">
+          {% render 'product-media-gallery', variant_images: variant_images %}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'description' and product.description != blank -%}
+              <div class="product__description product__description--under-media rte quick-add-hidden" {{ block.shopify_attributes }}>
+                {{ product.description }}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
       </div>
       <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
@@ -209,11 +218,7 @@
                   {%- endif -%}
                 </p>
               {%- when 'description' -%}
-                {%- if product.description != blank -%}
-                  <div class="product__description rte quick-add-hidden" {{ block.shopify_attributes }}>
-                    {{ product.description }}
-                  </div>
-                {%- endif -%}
+                {%- comment -%} Rendered under product__media-wrapper instead — see top of section {%- endcomment -%}
               {%- when 'sku' -%}
                 <p
                   class="product__sku{% if block.settings.text_style == 'uppercase' %} caption-with-letter-spacing{% elsif block.settings.text_style == 'subtitle' %} subtitle{% endif %}{% if product.selected_or_first_available_variant.sku.size == 0 %} visibility-hidden{% endif %}"

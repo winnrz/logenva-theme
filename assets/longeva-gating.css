@@ -232,7 +232,7 @@ main {
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
-  color: var(--color-primary);
+  color: var(--color-text-primary);
 }
 
 .product-card-wrapper .product-card__gated-status {
@@ -310,5 +310,70 @@ main {
   background-color: var(--color-accent);
   color: var(--color-secondary);
   box-shadow: none;
+}
+
+/* Cart line item VAT note (e.g. "20% VAT added at checkout") */
+.cart-item__vat-note {
+  margin: var(--padding-1) 0 0;
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  color: var(--color-text-secondary);
+  line-height: 1.3;
+  text-align: right;
+}
+
+/* PDP: group the image gallery and the product description into a single
+   visual card under .product__media-group. The cream background continues
+   from the gallery down to the description so they read as one unit. */
+.product__media-group {
+  background-color: #ffffff;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.product__media-group .product__media-item .media,
+.product__media-group .product__media-item .media--transparent {
+  background-color: transparent;
+}
+
+.product__description--under-media {
+  margin: 0;
+  padding: var(--padding-5) var(--padding-6) var(--padding-6);
+  border-top: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+/* Disable Dawn's sticky info column on the PDP. With the description now
+   under the image, the left column is always taller than the right, so
+   sticky behavior leaves an empty band of background under the right column.
+   Letting the right column scroll naturally aligns both columns visually. */
+@media screen and (min-width: 750px) {
+  .product__column-sticky {
+    position: static;
+  }
+}
+
+/* Global radius — override Dawn's settings-driven CSS variables so buttons
+   and variant pills consistently use --radius-md. Setting on body wins over
+   the inline :root style block emitted by Dawn from theme settings. */
+body {
+  --buttons-radius: var(--radius-md);
+  --buttons-radius-outset: var(--radius-md);
+  --variant-pills-radius: var(--radius-md);
+  --inputs-radius: var(--radius-md);
+  --inputs-radius-outset: var(--radius-md);
+}
+
+/* Variant pill picker — dark brown active state. Selector includes .product-form
+   for higher specificity than Dawn's component-product-variant-picker.css rule. */
+.product-form .product-form__input--pill input[type='radio']:checked + label,
+.product-form .product-form__input--pill input[type='radio']:checked + label:hover {
+  background-color: var(--color-primary);
+  color: var(--color-secondary);
+  border-color: var(--color-primary);
+}
+
+.product-form .product-form__input--pill input[type='radio']:not(:checked):hover + label,
+.product-form .product-form__input--pill input[type='radio']:focus-visible + label {
+  border-color: var(--color-primary);
 }
 

@@ -236,26 +236,41 @@
                         <td class="cart-item__totals right" role="cell" headers="CartDrawer-ColumnTotal">
                           {%- render 'loading-spinner' -%}
                           <div class="cart-item__price-wrapper">
+                            {%- liquid
+                              assign longeva_pathway_d = item.variant.title | downcase
+                              assign longeva_is_clinic_d = false
+                              if longeva_pathway_d contains 'clinic'
+                                assign longeva_is_clinic_d = true
+                              endif
+                            -%}
                             {%- if item.original_line_price != item.final_line_price -%}
                               <div class="cart-item__discounted-prices">
                                 <span class="visually-hidden">
                                   {{ 'products.product.price.regular_price' | t }}
                                 </span>
                                 <s class="cart-item__old-price price price--end">
-                                  {{ item.original_line_price | money }}
+                                  {{ item.original_line_price | money }} excl. VAT
                                 </s>
                                 <span class="visually-hidden">
                                   {{ 'products.product.price.sale_price' | t }}
                                 </span>
                                 <span class="price price--end">
-                                  {{ item.final_line_price | money }}
+                                  {{ item.final_line_price | money }} excl. VAT
                                 </span>
                               </div>
                             {%- else -%}
                               <span class="price price--end">
-                                {{ item.original_line_price | money }}
+                                {{ item.original_line_price | money }} excl. VAT
                               </span>
                             {%- endif -%}
+
+                            <p class="cart-item__vat-note">
+                              {%- if longeva_is_clinic_d -%}
+                                20% VAT added at checkout
+                              {%- else -%}
+                                Zero-rated (prescription supply)
+                              {%- endif -%}
+                            </p>
 
                             {%- if item.variant.available and item.unit_price_measurement -%}
                               {% render 'unit-price', price: item.unit_price, measurement: item.unit_price_measurement %}
