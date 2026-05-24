@@ -1,0 +1,70 @@
+{{ 'section-longeva-footer.css' | asset_url | stylesheet_tag }}
+
+<footer class="longeva-footer" role="contentinfo">
+  <div class="longeva-footer__inner page-width">
+    <div class="longeva-footer__grid">
+      <div class="longeva-footer__col longeva-footer__col--brand">
+        <a href="{{ routes.root_url }}" class="longeva-footer__wordmark" aria-label="Longeva">
+          {{ 'longeva-wordmark.svg' | inline_asset_content }}
+        </a>
+        <p class="longeva-footer__tagline">
+          Pharmacy-led aesthetics. Prescription-only medicines and practitioner supplies for verified UK clinicians.
+        </p>
+      </div>
+
+      <div class="longeva-footer__col">
+        <h2 class="longeva-footer__heading">Quick links</h2>
+        <ul class="longeva-footer__list" role="list">
+          <li><a href="/collections/injectables">Injectables</a></li>
+          <li><a href="/collections/skin-boosters">Skin boosters</a></li>
+          <li><a href="/pages/practitioner-application">Register as practitioner</a></li>
+          <li><a href="/pages/contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="longeva-footer__col longeva-footer__col--regulatory">
+        <h2 class="longeva-footer__heading">Legal &amp; regulatory</h2>
+        <dl class="longeva-footer__reg-list">
+          <div class="longeva-footer__reg-row">
+            <dt>GPhC premises registration</dt>
+            <dd>9000000</dd>
+          </div>
+          <div class="longeva-footer__reg-row">
+            <dt>MHRA WDA(H) licence</dt>
+            <dd>WDA 00000</dd>
+          </div>
+          <div class="longeva-footer__reg-row">
+            <dt>Company registration</dt>
+            <dd>00000000</dd>
+          </div>
+          <div class="longeva-footer__reg-row">
+            <dt>VAT number</dt>
+            <dd>GB 000 0000 00</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="longeva-footer__bar">
+      <small class="longeva-footer__copyright">&copy; {{ 'now' | date: '%Y' }} Longeva</small>
+      <nav class="longeva-footer__bar-links" aria-label="Legal">
+        <a href="/policies/privacy-policy">Privacy policy</a>
+        <button
+          type="button"
+          class="longeva-footer__cookie-btn"
+          onclick="window.Shopify &amp;&amp; window.Shopify.customerPrivacy &amp;&amp; window.Shopify.customerPrivacy.openPreferences &amp;&amp; window.Shopify.customerPrivacy.openPreferences()"
+        >
+          Cookie preferences
+        </button>
+      </nav>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Longeva footer",
+  "tag": "section",
+  "settings": []
+}
+{% endschema %}

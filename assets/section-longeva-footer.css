@@ -1,0 +1,166 @@
+/*
+ * Longeva footer
+ * Dark-brown plate with cream text and warm-gold links. Three-column layout on
+ * desktop (brand / quick links / regulatory) collapsing to a single column on
+ * mobile, with a slim bottom bar for copyright and policy links.
+ */
+
+.longeva-footer {
+  background-color: var(--color-text-secondary);
+  color: var(--color-border-subtle);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  line-height: 1.5;
+}
+
+.longeva-footer__inner {
+  padding-top: var(--padding-9);
+  padding-bottom: var(--padding-6);
+}
+
+.longeva-footer__grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1.4fr;
+  gap: var(--padding-8);
+  padding-bottom: var(--padding-8);
+}
+
+@media screen and (max-width: 749px) {
+  .longeva-footer__inner {
+    padding-top: var(--padding-7);
+  }
+  .longeva-footer__grid {
+    grid-template-columns: 1fr;
+    gap: var(--padding-7);
+  }
+}
+
+/* Brand column */
+.longeva-footer__wordmark {
+  display: inline-block;
+  color: var(--color-border-subtle);
+  margin-bottom: var(--padding-5);
+}
+
+.longeva-footer__wordmark svg {
+  display: block;
+  width: 160px;
+  height: auto;
+  fill: currentColor;
+}
+
+.longeva-footer__tagline {
+  margin: 0;
+  color: var(--color-border-subtle);
+  max-width: 32ch;
+}
+
+/* Heading shared between columns */
+.longeva-footer__heading {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 600;
+  color: var(--color-border-subtle);
+  margin: 0 0 var(--padding-5);
+  letter-spacing: 0;
+}
+
+/* Quick links */
+.longeva-footer__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-3);
+}
+
+.longeva-footer__list a,
+.longeva-footer__bar-links a,
+.longeva-footer__cookie-btn {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.longeva-footer__list a:hover,
+.longeva-footer__list a:focus-visible,
+.longeva-footer__bar-links a:hover,
+.longeva-footer__bar-links a:focus-visible,
+.longeva-footer__cookie-btn:hover,
+.longeva-footer__cookie-btn:focus-visible {
+  color: var(--color-accent);
+  outline: none;
+  text-decoration: underline;
+}
+
+/* Regulatory list — definition list reads as "label: value" pairs */
+.longeva-footer__reg-list {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-4);
+}
+
+.longeva-footer__reg-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  gap: var(--padding-4);
+  align-items: start;
+}
+
+.longeva-footer__reg-row dt {
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+.longeva-footer__reg-row dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+@media screen and (max-width: 749px) {
+  .longeva-footer__reg-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .longeva-footer__reg-row dt {
+    font-size: var(--type-small);
+  }
+}
+
+/* Bottom bar */
+.longeva-footer__bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--padding-4);
+  padding-top: var(--padding-5);
+  border-top: 0.6px solid color-mix(in srgb, var(--color-border-subtle) 25%, transparent);
+}
+
+.longeva-footer__copyright {
+  font-size: var(--type-small);
+  color: var(--color-border-subtle);
+  opacity: 0.7;
+}
+
+.longeva-footer__bar-links {
+  display: flex;
+  gap: var(--padding-5);
+  align-items: center;
+}
+
+.longeva-footer__bar-links a,
+.longeva-footer__cookie-btn {
+  font-size: var(--type-small);
+}
+
+.longeva-footer__cookie-btn {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  cursor: pointer;
+}

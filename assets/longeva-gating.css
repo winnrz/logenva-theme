@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: center;
   padding: var(--padding-4) var(--padding-6);
-  background-color: var(--color-text-secondary);
+  background-color: var(--color-primary);
   color: var(--color-border);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
@@ -38,5 +38,270 @@
   font-size: var(--type-small);
   color: var(--color-text-secondary);
   opacity: 0.75;
+}
+
+/* Sticky footer: flex the body so main grows to fill the viewport on short pages
+   (e.g. a collection with one product), keeping the footer pinned to the bottom. */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Page-level dividers — Dawn defaults to rgba(foreground, 0.08), almost invisible.
+   Re-declare with full shorthand + !important so we win against section CSS that
+   loads after this file. 0.6px stays barely-there at any zoom; color-mix softens
+   --color-border (#9b8979) toward white so the line reads as a tone, not a stroke. */
+.header-wrapper--border-bottom {
+  border-bottom: 0.6px solid color-mix(in srgb, var(--color-border) 50%, white) !important;
+}
+
+/* Collection banner title — dial off pure black to the warm dark-brown so the
+   heading sits in the brand palette instead of stamping the page. Tighter top
+   and bottom margin pulls the title close to the header and the products.
+   Doubled-up selector beats Dawn's `.collection-hero__title { margin: 2.5rem 0 }`
+   which loads later via the section's stylesheet_tag. */
+.collection-hero .collection-hero__title {
+  color: var(--color-text-secondary);
+  margin: 1rem 0 0.25rem;
+}
+
+/* Description sits directly under the title — using adjacent-sibling + .rte so we
+   out-specify Dawn's `.collection-hero__title + .collection-hero__description`
+   rule (which otherwise forces margin-top: 2rem and font-size: 1.8rem at desktop). */
+.collection-hero__title + .collection-hero__description.rte {
+  color: var(--color-text-secondary);
+  font-size: var(--type-body);
+  line-height: 1.5;
+  max-width: 60ch;
+  margin: 0.25rem 0 1.5rem;
+  opacity: 0.8;
+}
+
+/* Product card — gated states (public, pending, approved) */
+
+/* Card chrome: 0.5px stroke, image area divided by a bottom-only stroke.
+   Wrapper → card → content stretch so cards in a row match height; price/label
+   + button get pinned to the bottom (see margin-top:auto below) so the action
+   zone aligns across cards regardless of title length. */
+.product-card-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-width: 360px;
+  border: 0.8px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: var(--color-secondary);
+}
+
+.product-card-wrapper .card {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+.product-card-wrapper .card__inner {
+  border-bottom: 1px solid var(--color-border);
+  background-color: color-mix(in srgb, var(--color-border-subtle) 40%, white);
+}
+
+/* Override Dawn's inline `--ratio-percent: 100%` (square). Inline styles don't
+   apply to pseudo-elements, so targeting ::before wins without !important.
+   75% = 4:3 landscape, closer to the natural shape of product packaging. */
+.product-card-wrapper .card__inner::before {
+  padding-bottom: 75%;
+}
+
+/* Frame the product photo: warm-tinted backdrop (cream mixed with white so it
+   reads as a neutral surface, not a colored block competing with packaging). */
+.product-card-wrapper .card__media {
+  background-color: color-mix(in srgb, var(--color-border-subtle) 40%, white);
+}
+
+.product-card-wrapper .card__media .media img {
+  object-fit: contain;
+  padding: var(--padding-6);
+  box-sizing: border-box;
+}
+
+/* Top group (title + pack-size) sits naturally at the top. The .product-card__action
+   wrapper (price/label + button) is pinned to the bottom via margin-top:auto so the
+   action zone aligns across cards regardless of title length. Internal rhythm uses
+   a single padding-4 gap throughout. */
+.product-card-wrapper > .card > .card__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-4);
+  flex: 1;
+  padding: var(--padding-4) var(--padding-6) var(--padding-6);
+}
+
+.product-card-wrapper > .card > .card__content > .card__information {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-4);
+  padding: 0;
+}
+
+.product-card-wrapper .card-information {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-4);
+}
+
+.product-card-wrapper .product-card__action {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-4);
+  margin-top: auto;
+}
+
+.product-card-wrapper .product-card__title {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-1);
+}
+
+.product-card-wrapper .card__heading,
+.product-card-wrapper .card__heading.h5 {
+  font-family: var(--font-body-family);
+  font-size: var(--type-h4);
+  font-weight: 400;
+  color: var(--color-text-primary);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
+}
+
+.product-card-wrapper .card__heading a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.product-card-wrapper .product-card__pack-size {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  color: var(--color-text-secondary);
+  opacity: 0.7;
+  margin: 0;
+}
+
+.product-card-wrapper .product-card__price,
+.product-card-wrapper .product-card__gated-label {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  color: var(--color-border);
+  line-height: 1.2;
+}
+
+.product-card-wrapper .product-card__gated-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-2);
+  white-space: nowrap;
+}
+
+.product-card-wrapper .product-card__gated-label-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.product-card-wrapper .product-card__gated-label-icon svg {
+  width: 0.85em;
+  height: auto;
+  color: currentColor;
+}
+
+.product-card-wrapper .product-card__price-vat {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 400;
+  color: var(--color-primary);
+}
+
+.product-card-wrapper .product-card__gated-status {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+/* Kill Dawn's underline-links-hover for the title and CTA — they should never underline */
+.product-card-wrapper.underline-links-hover:hover .card__heading a,
+.product-card-wrapper.underline-links-hover:hover .product-card__cta,
+.product-card-wrapper .card__heading a,
+.product-card-wrapper .card__heading a:hover,
+.product-card-wrapper .product-card__cta,
+.product-card-wrapper .product-card__cta:hover,
+.product-card-wrapper .product-card__cta:focus,
+.product-card-wrapper .product-card__cta:focus-visible {
+  text-decoration: none;
+}
+
+/* CTA — same shape, padding, and states as the auth submit.
+   position/z-index lifts it above Dawn's .card__heading a::after overlay
+   (component-card.css), which otherwise swallows clicks and hover. */
+.product-card-wrapper .product-card__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: var(--padding-3) var(--padding-6);
+  background-color: var(--color-text-secondary);
+  color: var(--color-secondary);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 400;
+  text-align: center;
+  border: none;
+  border-radius: var(--radius-sm);
+  position: relative;
+  z-index: 2;
+  transition: background-color 0.15s ease;
+}
+
+.product-card-wrapper .product-card__cta:hover,
+.product-card-wrapper .product-card__cta:focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-secondary);
+  outline: none;
+}
+
+/* Approved-state Add to Cart button — matches auth submit + Register.
+   position/z-index keeps it above the title-link overlay (see above). */
+.product-card-wrapper .quick-add__submit {
+  background-color: var(--color-text-secondary);
+  color: var(--color-secondary);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 600;
+  padding: var(--padding-3) var(--padding-6);
+  min-height: 0;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.product-card-wrapper .quick-add__submit::before,
+.product-card-wrapper .quick-add__submit::after {
+  display: none;
+}
+
+.product-card-wrapper .quick-add__submit:not([disabled]):hover,
+.product-card-wrapper .quick-add__submit:not([disabled]):focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-secondary);
+  box-shadow: none;
 }
 

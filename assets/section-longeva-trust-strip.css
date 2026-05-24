@@ -1,0 +1,66 @@
+/*
+ * Longeva trust strip
+ * Slim band of brand-affirming statements that bridges the white page content
+ * to the dark-brown footer. Cream backdrop (--color-border-subtle), dark-brown
+ * text, hairline dividers between items.
+ */
+
+/* margin-top creates the deliberate gap between the page's product grid and the
+   trust band — large enough to feel like a hand-off, not so large it reads as
+   empty space. Internal padding makes the band itself feel composed, not pinched. */
+.longeva-trust-strip {
+  background-color: var(--color-border-subtle);
+  color: var(--color-text-secondary);
+  border-top: 0.6px solid color-mix(in srgb, var(--color-border) 50%, white);
+  border-bottom: 0.6px solid color-mix(in srgb, var(--color-border) 50%, white);
+  margin-top: var(--padding-9);
+}
+
+.longeva-trust-strip__inner {
+  padding-top: var(--padding-5);
+  padding-bottom: var(--padding-5);
+}
+
+.longeva-trust-strip__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--padding-8);
+  flex-wrap: wrap;
+}
+
+.longeva-trust-strip__item {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  position: relative;
+  text-align: center;
+}
+
+/* Hairline divider between adjacent items — sits to the left of every item
+   except the first, so it reads as a "between" mark rather than a leading rule. */
+.longeva-trust-strip__item + .longeva-trust-strip__item::before {
+  content: '';
+  position: absolute;
+  left: calc(var(--padding-8) * -0.5);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 1em;
+  background-color: color-mix(in srgb, var(--color-text-secondary) 30%, transparent);
+}
+
+@media screen and (max-width: 749px) {
+  .longeva-trust-strip__list {
+    gap: var(--padding-4);
+    flex-direction: column;
+  }
+  /* Dividers don't make sense in a vertical stack — hide them on mobile. */
+  .longeva-trust-strip__item + .longeva-trust-strip__item::before {
+    display: none;
+  }
+}

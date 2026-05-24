@@ -22,6 +22,18 @@
     margin-left: -1.2rem;
   }
 
+  .header__heading-logo-wordmark {
+    display: inline-flex;
+    align-items: center;
+    color: var(--color-text-primary, #000);
+  }
+
+  .header__heading-logo-wordmark svg {
+    width: 140px;
+    height: auto;
+    display: block;
+  }
+
   {%- if section.settings.sticky_header_type == 'reduce-logo-size' -%}
     .scrolled-past-header .header__heading-logo-wrapper {
       width: 75%;
@@ -172,7 +184,9 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <span class="header__heading-logo-wordmark" aria-label="{{ shop.name | escape }}">
+            {{ 'longeva-wordmark.svg' | inline_asset_content }}
+          </span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}
@@ -215,7 +229,9 @@
             }}
           </div>
         {%- else -%}
-          <span class="h2">{{ shop.name }}</span>
+          <span class="header__heading-logo-wordmark" aria-label="{{ shop.name | escape }}">
+            {{ 'longeva-wordmark.svg' | inline_asset_content }}
+          </span>
         {%- endif -%}
       </a>
       {%- if request.page_type == 'index' -%}

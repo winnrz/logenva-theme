@@ -18,7 +18,20 @@
       </h1>
 
       {%- if section.settings.show_collection_description -%}
-        <div class="collection-hero__description rte">{{ collection.description }}</div>
+        {%- liquid
+          assign collection_description = collection.description
+          if collection_description == blank
+            case collection.handle
+              when 'injectables'
+                assign collection_description = 'Professional injectables, including prescription-only medicines. Available to verified UK practitioners.'
+              when 'skin-boosters'
+                assign collection_description = 'Hyaluronic acid treatments for hydration and skin quality. Available to verified UK practitioners.'
+            endcase
+          endif
+        -%}
+        {%- if collection_description != blank -%}
+          <div class="collection-hero__description rte">{{ collection_description }}</div>
+        {%- endif -%}
       {%- endif -%}
     </div>
 
