@@ -267,6 +267,43 @@ main {
   letter-spacing: 0.02em;
 }
 
+.product__gated-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-2);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  color: var(--color-border);
+  line-height: 1.2;
+  margin: 0;
+}
+
+.product__gated-label-icon {
+  display: inline-flex;
+  align-items: center;
+}
+
+.product__gated-label-icon svg {
+  width: 0.9em;
+  height: auto;
+  color: currentColor;
+}
+
+.product__gated-cta {
+  margin-top: var(--padding-4);
+}
+
+.product__gated-status {
+  display: block;
+  width: 100%;
+  padding: var(--padding-3) 0;
+  color: var(--color-accent);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 400;
+  text-align: center;
+}
+
 .product-card-wrapper .product-card__gated-status {
   font-family: var(--font-body-family);
   font-size: var(--type-body);

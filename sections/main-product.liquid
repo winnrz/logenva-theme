@@ -3,6 +3,14 @@
   if customer.tags contains 'approved'
     assign longeva_approved = true
   endif
+  if customer
+    assign longeva_state = 'pending'
+    if longeva_approved
+      assign longeva_state = 'approved'
+    endif
+  else
+    assign longeva_state = 'public'
+  endif
   assign longeva_is_pom = false
   if product.metafields.shopify["prescription-status"].value.size > 0
     assign longeva_is_pom = true
@@ -139,17 +147,26 @@
                     assign longeva_is_clinic_pdp = true
                   endif
                 -%}
-                <div id="price-{{ section.id }}" role="status" class="product__price-block" {{ block.shopify_attributes }}>
-                  {%- render 'price',
-                    product: product,
-                    use_variant: true,
-                    show_badges: true,
-                    price_class: 'price--large'
-                  -%}
-                  <span class="product__price-vat">excl. VAT</span>
-                </div>
-                {%- if longeva_is_clinic_pdp -%}
-                  <p class="product__vat-note">VAT calculated at checkout</p>
+                {%- if longeva_state == 'approved' -%}
+                  <div id="price-{{ section.id }}" role="status" class="product__price-block" {{ block.shopify_attributes }}>
+                    {%- render 'price',
+                      product: product,
+                      use_variant: true,
+                      show_badges: true,
+                      price_class: 'price--large'
+                    -%}
+                    <span class="product__price-vat">excl. VAT</span>
+                  </div>
+                  {%- if longeva_is_clinic_pdp -%}
+                    <p class="product__vat-note">VAT calculated at checkout</p>
+                  {%- endif -%}
+                {%- else -%}
+                  <div id="price-{{ section.id }}" role="status" class="product__gated-label" {{ block.shopify_attributes }}>
+                    <span class="product__gated-label-icon">
+                      {{- 'icon-padlock.svg' | inline_asset_content -}}
+                    </span>
+                    Pricing for verified practitioners
+                  </div>
                 {%- endif -%}
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -511,13 +528,25 @@
               {%- when 'variant_picker' -%}
                 {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
               {%- when 'buy_buttons' -%}
-                {%- render 'buy-buttons',
-                  block: block,
-                  product: product,
-                  product_form_id: product_form_id,
-                  section_id: section.id,
-                  show_pickup_availability: true
-                -%}
+                {%- if longeva_state == 'approved' -%}
+                  {%- render 'buy-buttons',
+                    block: block,
+                    product: product,
+                    product_form_id: product_form_id,
+                    section_id: section.id,
+                    show_pickup_availability: true
+                  -%}
+                {%- elsif longeva_state == 'pending' -%}
+                  <div class="product__gated-cta" {{ block.shopify_attributes }}>
+                    <span class="product__gated-status">Account is awaiting approval</span>
+                  </div>
+                {%- else -%}
+                  <div class="product__gated-cta" {{ block.shopify_attributes }}>
+                    <a href="/pages/practitioner-application" class="product__gated-link button button--full-width button--primary">
+                      Register as practitioner
+                    </a>
+                  </div>
+                {%- endif -%}
               {%- when 'rating' -%}
                 {%- if product.metafields.reviews.rating.value != blank -%}
                   <div class="rating-wrapper">
