@@ -290,13 +290,13 @@ main {
 }
 
 .product__gated-cta {
-  margin-top: var(--padding-4);
+  margin-top: 0;
 }
 
 .product__gated-status {
   display: block;
   width: 100%;
-  padding: var(--padding-3) 0;
+  padding: 0;
   color: var(--color-border);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
