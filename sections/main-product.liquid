@@ -161,11 +161,16 @@
                     <p class="product__vat-note">VAT calculated at checkout</p>
                   {%- endif -%}
                 {%- else -%}
-                  <div id="price-{{ section.id }}" role="status" class="product__gated-label" {{ block.shopify_attributes }}>
-                    <span class="product__gated-label-icon">
-                      {{- 'icon-padlock.svg' | inline_asset_content -}}
-                    </span>
-                    Pricing for verified practitioners
+                  <div id="price-{{ section.id }}" role="status" class="product__gated-group" {{ block.shopify_attributes }}>
+                    <p class="product__gated-label">
+                      <span class="product__gated-label-icon">
+                        {{- 'icon-padlock.svg' | inline_asset_content -}}
+                      </span>
+                      Pricing for verified practitioners
+                    </p>
+                    {%- if longeva_state == 'pending' -%}
+                      <p class="product__gated-status">Account is awaiting approval</p>
+                    {%- endif -%}
                   </div>
                 {%- endif -%}
                 {%- if product.quantity_price_breaks_configured? -%}
@@ -536,11 +541,7 @@
                     section_id: section.id,
                     show_pickup_availability: true
                   -%}
-                {%- elsif longeva_state == 'pending' -%}
-                  <div class="product__gated-cta" {{ block.shopify_attributes }}>
-                    <span class="product__gated-status">Account is awaiting approval</span>
-                  </div>
-                {%- else -%}
+                {%- elsif longeva_state == 'public' -%}
                   <div class="product__gated-cta" {{ block.shopify_attributes }}>
                     <a href="/pages/practitioner-application" class="product__gated-link button button--full-width button--primary">
                       Register as practitioner

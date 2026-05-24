@@ -267,6 +267,12 @@ main {
   letter-spacing: 0.02em;
 }
 
+.product__gated-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-1);
+}
+
 .product__gated-label {
   display: inline-flex;
   align-items: center;
@@ -295,13 +301,13 @@ main {
 
 .product__gated-status {
   display: block;
-  width: 100%;
+  margin: 0;
   padding: 0;
   color: var(--color-border);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
-  text-align: center;
+  text-align: left;
 }
 
 .product-card-wrapper .product-card__gated-status {
