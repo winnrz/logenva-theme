@@ -206,7 +206,7 @@ main {
 .product-card-wrapper .product-card__gated-label {
   font-family: var(--font-body-family);
   font-size: var(--type-body);
-  color: var(--color-accent);
+  color: var(--color-border);
   line-height: 1.2;
 }
 
@@ -273,7 +273,7 @@ main {
   gap: var(--padding-2);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
-  color: var(--color-accent);
+  color: var(--color-border);
   line-height: 1.2;
   margin: 0;
 }
@@ -297,7 +297,7 @@ main {
   display: block;
   width: 100%;
   padding: var(--padding-3) 0;
-  color: var(--color-primary);
+  color: var(--color-border);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
@@ -356,7 +356,7 @@ main {
   display: block;
   width: 100%;
   padding: var(--padding-3) 0 0;
-  color: var(--color-primary);
+  color: var(--color-border);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
