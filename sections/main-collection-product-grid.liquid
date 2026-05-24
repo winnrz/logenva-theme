@@ -22,6 +22,20 @@
   <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+  assign longeva_visible_count = 0
+  for longeva_p in collection.products
+    if longeva_p.metafields.shopify["prescription-status"].value.size > 0 and longeva_approved == false
+    else
+      assign longeva_visible_count = longeva_visible_count | plus: 1
+    endif
+  endfor
+-%}
+
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -34,6 +48,18 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {%- if longeva_visible_count == 1 -%}
+    #product-grid.product-grid--single {
+      grid-template-columns: minmax(0, calc(100% / {{ section.settings.columns_desktop }}));
+      justify-content: center;
+    }
+    @media screen and (max-width: 749px) {
+      #product-grid.product-grid--single {
+        grid-template-columns: minmax(0, calc(100% / {{ section.settings.columns_mobile }}));
+      }
+    }
+  {%- endif -%}
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
@@ -150,10 +176,14 @@
                 grid product-grid grid--{{ section.settings.columns_mobile }}-col-tablet-down
                 grid--{{ section.settings.columns_desktop }}-col-desktop
                 {% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}
+                {% if longeva_visible_count == 1 %} product-grid--single{% endif %}
               "
             >
               {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
+                {%- if product.metafields.shopify["prescription-status"].value.size > 0 and longeva_approved == false -%}
+                  {%- continue -%}
+                {%- endif -%}
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}
