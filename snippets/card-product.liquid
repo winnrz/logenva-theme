@@ -321,11 +321,16 @@
               <span class="product-card__price-vat">excl. VAT</span>
             </div>
           {%- else -%}
-            <div class="product-card__gated-label">
-              <span class="product-card__gated-label-icon">
-                {{- 'icon-padlock.svg' | inline_asset_content -}}
-              </span>
-              Pricing for verified practitioners
+            <div class="product-card__gated-group">
+              <div class="product-card__gated-label">
+                <span class="product-card__gated-label-icon">
+                  {{- 'icon-padlock.svg' | inline_asset_content -}}
+                </span>
+                Pricing for verified practitioners
+              </div>
+              {%- if longeva_state == 'pending' -%}
+                <span class="product-card__status" aria-disabled="true">Awaiting approval</span>
+              {%- endif -%}
             </div>
           {%- endif -%}
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
@@ -589,8 +594,6 @@
               </div>
             {% endif %}
           {% endif %}
-        {%- elsif longeva_state == 'pending' -%}
-          <span class="product-card__status" aria-disabled="true">Account is awaiting approval</span>
         {%- elsif longeva_state == 'public' -%}
           <a href="/pages/practitioner-application" class="product-card__cta">Register as practitioner</a>
         {%- endif -%}
