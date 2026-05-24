@@ -314,8 +314,8 @@
         <div class="product-card__action">
           {%- if longeva_state == 'approved' -%}
             <div class="product-card__price">
-              {{ card_product.price | money_without_trailing_zeros }}
-              <span class="product-card__price-vat">ex VAT</span>
+              {{ card_product.price | money }}
+              <span class="product-card__price-vat">excl. VAT</span>
             </div>
           {%- else -%}
             <div class="product-card__gated-label">

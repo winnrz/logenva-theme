@@ -195,7 +195,14 @@ main {
   margin: 0;
 }
 
-.product-card-wrapper .product-card__price,
+.product-card-wrapper .product-card__price {
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  line-height: 1.2;
+}
+
 .product-card-wrapper .product-card__gated-label {
   font-family: var(--font-body-family);
   font-size: var(--type-body);
