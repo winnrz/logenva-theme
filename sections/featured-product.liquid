@@ -7,8 +7,12 @@
   if customer.tags contains 'approved'
     assign longeva_approved = true
   endif
+  assign longeva_is_pom = false
+  if product.metafields.shopify["prescription-status"].value.size > 0
+    assign longeva_is_pom = true
+  endif
   assign longeva_hide_pom = false
-  if product.tags contains 'prescription-only' and longeva_approved == false
+  if longeva_is_pom and longeva_approved == false
     assign longeva_hide_pom = true
   endif
 -%}

@@ -27,14 +27,17 @@
 {%- endif -%}
 
 {%- if request.page_type == 'product' -%}
-  {%- unless product.tags contains 'prescription-only' -%}
+  {%- assign longeva_is_pom = false -%}
+  {%- if product.metafields.shopify["prescription-status"].value.size > 0 -%}
+    {%- assign longeva_is_pom = true -%}
+  {%- endif -%}
+  {%- unless longeva_is_pom -%}
     <meta property="og:price:amount" content="{{ product.price | money_without_currency | strip_html }}">
     <meta property="og:price:currency" content="{{ cart.currency.iso_code }}">
   {%- endunless -%}
-{%- endif -%}
-
-{%- if request.page_type == 'product' and product.tags contains 'prescription-only' -%}
-  <meta name="robots" content="noindex, nofollow">
+  {%- if longeva_is_pom -%}
+    <meta name="robots" content="noindex, nofollow">
+  {%- endif -%}
 {%- endif -%}
 
 {%- if settings.social_twitter_link != blank -%}

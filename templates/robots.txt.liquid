@@ -1,8 +1,9 @@
 {% comment %}
-  Extends Shopify's default robots.txt with Disallow lines for products tagged
-  `prescription-only` (POM). Combined with `<meta name="robots" content="noindex,
-  nofollow">` on the product page (see snippets/meta-tags.liquid), this prevents
-  search engines from crawling or indexing prescription-only product URLs.
+  Extends Shopify's default robots.txt with Disallow lines for products
+  classified as Prescription Only Medicine via the shopify.prescription-status
+  metafield. Combined with `<meta name="robots" content="noindex, nofollow">`
+  on the product page (see snippets/meta-tags.liquid), this prevents search
+  engines from crawling or indexing POM product URLs.
 {% endcomment %}
 {% for group in robots.default_groups %}
   {{- group.user_agent }}
@@ -13,7 +14,7 @@
 
   {%- if group.user_agent.value == '*' -%}
     {%- for product in collections.all.products -%}
-      {%- if product.tags contains 'prescription-only' -%}
+      {%- if product.metafields.shopify["prescription-status"].value.size > 0 -%}
         {{ 'Disallow: /products/' | append: product.handle }}
       {%- endif -%}
     {%- endfor -%}

@@ -5,12 +5,16 @@
     if customer.tags contains 'approved'
       assign longeva_approved = true
     endif
-    assign longeva_pom_products = predictive_search.resources.products | where: 'tags', 'prescription-only'
-    if longeva_approved
-      assign longeva_visible_products_size = predictive_search.resources.products.size
-    else
-      assign longeva_visible_products_size = predictive_search.resources.products.size | minus: longeva_pom_products.size
-    endif
+    assign longeva_visible_products_size = predictive_search.resources.products.size
+    unless longeva_approved
+      assign longeva_pom_count = 0
+      for longeva_p in predictive_search.resources.products
+        if longeva_p.metafields.shopify["prescription-status"].value.size > 0
+          assign longeva_pom_count = longeva_pom_count | plus: 1
+        endif
+      endfor
+      assign longeva_visible_products_size = predictive_search.resources.products.size | minus: longeva_pom_count
+    endunless
   -%}
   {% assign first_column_results_size = predictive_search.resources.queries.size
     | plus: predictive_search.resources.collections.size
@@ -142,7 +146,7 @@
               aria-labelledby="predictive-search-products"
             >
               {%- for product in predictive_search.resources.products -%}
-                {%- if product.tags contains 'prescription-only' and longeva_approved == false -%}
+                {%- if product.metafields.shopify["prescription-status"].value.size > 0 and longeva_approved == false -%}
                   {%- continue -%}
                 {%- endif -%}
                 <li

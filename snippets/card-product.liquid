@@ -49,8 +49,12 @@
       assign longeva_state = 'public'
     endif
     assign longeva_pack_size = card_product.metafields.custom.pack_size
+    assign longeva_is_pom = false
+    if card_product.metafields.shopify["prescription-status"].value.size > 0
+      assign longeva_is_pom = true
+    endif
     assign longeva_hide_pom = false
-    if card_product.tags contains 'prescription-only' and longeva_state != 'approved'
+    if longeva_is_pom and longeva_state != 'approved'
       assign longeva_hide_pom = true
     endif
   -%}
