@@ -1,15 +1,27 @@
 {% comment %}theme-check-disable ImgLazyLoading{% endcomment %}
 {%- if predictive_search.performed -%}
+  {%- liquid
+    assign longeva_approved = false
+    if customer.tags contains 'approved'
+      assign longeva_approved = true
+    endif
+    assign longeva_pom_products = predictive_search.resources.products | where: 'tags', 'prescription-only'
+    if longeva_approved
+      assign longeva_visible_products_size = predictive_search.resources.products.size
+    else
+      assign longeva_visible_products_size = predictive_search.resources.products.size | minus: longeva_pom_products.size
+    endif
+  -%}
   {% assign first_column_results_size = predictive_search.resources.queries.size
     | plus: predictive_search.resources.collections.size
     | plus: predictive_search.resources.pages.size
     | plus: predictive_search.resources.articles.size
   %}
   <div id="predictive-search-results" role="listbox">
-    {%- if first_column_results_size > 0 or predictive_search.resources.products.size > 0 -%}
+    {%- if first_column_results_size > 0 or longeva_visible_products_size > 0 -%}
       <div
         id="predictive-search-results-groups-wrapper"
-        class="predictive-search__results-groups-wrapper{% unless predictive_search.resources.products.size > 0 %} predictive-search__results-groups-wrapper--no-products{% endunless %}{% unless predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 %} predictive-search__results-groups-wrapper--no-suggestions{% endunless %}"
+        class="predictive-search__results-groups-wrapper{% unless longeva_visible_products_size > 0 %} predictive-search__results-groups-wrapper--no-products{% endunless %}{% unless predictive_search.resources.queries.size > 0 or predictive_search.resources.collections.size > 0 %} predictive-search__results-groups-wrapper--no-suggestions{% endunless %}"
       >
     {%- endif -%}
     {%- if first_column_results_size > 0 -%}
@@ -110,12 +122,12 @@
     {%- if first_column_results_size > 0 -%}
       </div>
     {%- endif -%}
-    {%- if predictive_search.resources.products.size > 0
+    {%- if longeva_visible_products_size > 0
       or predictive_search.resources.articles.size > 0
       or predictive_search.resources.pages.size > 0
     -%}
       <div class="predictive-search__result-group">
-        {%- if predictive_search.resources.products.size > 0 -%}
+        {%- if longeva_visible_products_size > 0 -%}
           <div>
             <h2
               id="predictive-search-products"
@@ -130,6 +142,9 @@
               aria-labelledby="predictive-search-products"
             >
               {%- for product in predictive_search.resources.products -%}
+                {%- if product.tags contains 'prescription-only' and longeva_approved == false -%}
+                  {%- continue -%}
+                {%- endif -%}
                 <li
                   id="predictive-search-option-product-{{ forloop.index }}"
                   class="predictive-search__list-item"
@@ -215,7 +230,7 @@
         {%- endif -%}
       </div>
     {%- endif -%}
-    {%- if first_column_results_size > 0 or predictive_search.resources.products.size > 0 -%}
+    {%- if first_column_results_size > 0 or longeva_visible_products_size > 0 -%}
       </div>
     {%- endif -%}
 
@@ -240,7 +255,7 @@
 
   <span class="hidden" data-predictive-search-live-region-count-value>
     {% liquid
-      assign total_results = predictive_search.resources.products.size | plus: first_column_results_size
+      assign total_results = longeva_visible_products_size | plus: first_column_results_size
       if total_results == 0
         echo 'templates.search.no_results' | t: terms: predictive_search.terms
       else
@@ -253,8 +268,8 @@
           assign count = predictive_search.resources.pages.size | plus: predictive_search.resources.articles.size
           echo 'templates.search.results_pages_with_count' | t: count: count | append: ', '
         endif
-        if predictive_search.resources.products.size > 0
-          echo 'templates.search.results_products_with_count' | t: count: predictive_search.resources.products.size
+        if longeva_visible_products_size > 0
+          echo 'templates.search.results_products_with_count' | t: count: longeva_visible_products_size
         endif
       endif
     %}

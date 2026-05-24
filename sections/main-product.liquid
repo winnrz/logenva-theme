@@ -1,3 +1,16 @@
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+  assign longeva_hide_pom = false
+  if product.tags contains 'prescription-only' and longeva_approved == false
+    assign longeva_hide_pom = true
+  endif
+-%}
+{%- if longeva_hide_pom -%}
+{% render 'longeva-not-found' %}
+{%- else -%}
 <product-info
   id="MainProduct-{{ section.id }}"
   class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}"
@@ -737,6 +750,7 @@
     </script>
   </div>
 </product-info>
+{%- endif -%}
 
 {% schema %}
 {

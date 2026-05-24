@@ -3,8 +3,17 @@
   if product == null
     assign placeholder = true
   endif
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+  assign longeva_hide_pom = false
+  if product.tags contains 'prescription-only' and longeva_approved == false
+    assign longeva_hide_pom = true
+  endif
 -%}
 
+{%- unless longeva_hide_pom -%}
 <product-info
   data-section="{{ section.id }}"
   data-product-id="{{ product.id }}"
@@ -500,6 +509,7 @@
     <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
   {% endif %}
 </product-info>
+{%- endunless -%}
 
 {% schema %}
 {

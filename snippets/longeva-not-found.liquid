@@ -1,0 +1,31 @@
+{%- comment -%}
+  Renders the 404 not-found content. Used by sections/main-404.liquid and by
+  sections/main-product.liquid when a POM product is requested by a non-approved
+  viewer (Shopify Liquid cannot return a 404 status, so the page returns 200 with
+  this 404-styled content; combined with noindex + robots Disallow the page is
+  effectively invisible).
+{%- endcomment -%}
+
+<style>
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+
+  @media screen and (min-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+  }
+</style>
+
+<div class="template-404 page-width page-margin center">
+  <p>
+    {{ 'templates.404.subtext' | t }}
+  </p>
+  <h1 class="title">
+    {{ 'templates.404.title' | t }}
+  </h1>
+  <a href="{{ routes.all_products_collection_url }}" class="button">
+    {{ 'general.continue_shopping' | t }}
+  </a>
+</div>
