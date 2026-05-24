@@ -48,6 +48,9 @@
     else
       assign longeva_state = 'public'
     endif
+    if longeva_state == 'approved'
+      assign quick_add = 'standard'
+    endif
     assign longeva_pack_size = card_product.metafields.custom.pack_size
     assign longeva_is_pom = false
     if card_product.metafields.shopify["prescription-status"].value.size > 0
@@ -324,9 +327,6 @@
               </span>
               Pricing for verified practitioners
             </div>
-            {%- if longeva_state == 'pending' -%}
-              <div class="product-card__gated-status">Account awaiting approval</div>
-            {%- endif -%}
           {%- endif -%}
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}
         {%- if longeva_state == 'approved' -%}
@@ -589,6 +589,8 @@
               </div>
             {% endif %}
           {% endif %}
+        {%- elsif longeva_state == 'pending' -%}
+          <span class="product-card__cta product-card__cta--disabled" aria-disabled="true">Awaiting approval</span>
         {%- elsif longeva_state == 'public' -%}
           <a href="/pages/practitioner-application" class="product-card__cta">Register as practitioner</a>
         {%- endif -%}

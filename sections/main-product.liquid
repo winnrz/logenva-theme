@@ -132,14 +132,25 @@
                   </a>
                 </div>
               {%- when 'price' -%}
-                <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                {%- liquid
+                  assign longeva_pathway_pdp = product.selected_or_first_available_variant.title | downcase
+                  assign longeva_is_clinic_pdp = false
+                  if longeva_pathway_pdp contains 'clinic'
+                    assign longeva_is_clinic_pdp = true
+                  endif
+                -%}
+                <div id="price-{{ section.id }}" role="status" class="product__price-block" {{ block.shopify_attributes }}>
                   {%- render 'price',
                     product: product,
                     use_variant: true,
                     show_badges: true,
                     price_class: 'price--large'
                   -%}
+                  <span class="product__price-vat">excl. VAT</span>
                 </div>
+                {%- if longeva_is_clinic_pdp -%}
+                  <p class="product__vat-note">VAT calculated at checkout</p>
+                {%- endif -%}
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
                     <span>{{ 'products.product.volume_pricing.note' | t }}</span>
