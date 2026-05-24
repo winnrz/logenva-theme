@@ -315,14 +315,15 @@ main {
   outline: none;
 }
 
-.product-card-wrapper .product-card__cta--disabled,
-.product-card-wrapper .product-card__cta--disabled:hover,
-.product-card-wrapper .product-card__cta--disabled:focus-visible {
-  background-color: var(--color-border);
-  color: var(--color-secondary);
-  cursor: not-allowed;
-  pointer-events: none;
-  opacity: 0.85;
+.product-card-wrapper .product-card__status {
+  display: block;
+  width: 100%;
+  padding: var(--padding-3) 0 0;
+  color: var(--color-accent);
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  font-weight: 400;
+  text-align: center;
 }
 
 /* Approved-state Add to Cart button — matches auth submit + Register.
