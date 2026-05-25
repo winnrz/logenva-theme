@@ -1,54 +1,17 @@
 {%- comment -%}
   Site-wide banner shown only to customers whose account is pending approval
-  (logged in, no 'approved' tag). Dismissable for the session via sessionStorage.
+  (logged in, no 'approved' tag). Sits above the header. Not dismissable.
   Expects `longeva_state` to be assigned by the surrounding layout
   (see layout/theme.liquid).
 {%- endcomment -%}
 
 {%- if longeva_state == 'pending' -%}
-  <longeva-pending-banner
-    class="pending-banner"
-    role="status"
-    aria-live="polite"
-    data-storage-key="longeva.pending_banner_dismissed"
-    hidden
-  >
+  <div class="pending-banner" role="status" aria-live="polite">
     <div class="pending-banner__inner page-width">
       <p class="pending-banner__copy">
-        <strong>Your practitioner account is awaiting approval.</strong>
-        We'll email you once verified, usually within one working day.
+        <span class="pending-banner__lead">Your practitioner account is awaiting approval.</span>
+        <span class="pending-banner__sub">We'll email you once verified, usually within one working day.</span>
       </p>
-      <button
-        type="button"
-        class="pending-banner__dismiss"
-        aria-label="Dismiss approval notice"
-      >
-        {{- 'icon-close.svg' | inline_asset_content -}}
-      </button>
     </div>
-  </longeva-pending-banner>
-
-  <script>
-    (function () {
-      class LongevaPendingBanner extends HTMLElement {
-        connectedCallback() {
-          const key = this.dataset.storageKey || 'longeva.pending_banner_dismissed';
-          try {
-            if (sessionStorage.getItem(key) === '1') return;
-          } catch (e) { /* sessionStorage unavailable — show banner */ }
-          this.hidden = false;
-          const btn = this.querySelector('.pending-banner__dismiss');
-          if (btn) {
-            btn.addEventListener('click', () => {
-              try { sessionStorage.setItem(key, '1'); } catch (e) {}
-              this.hidden = true;
-            });
-          }
-        }
-      }
-      if (!customElements.get('longeva-pending-banner')) {
-        customElements.define('longeva-pending-banner', LongevaPendingBanner);
-      }
-    })();
-  </script>
+  </div>
 {%- endif -%}

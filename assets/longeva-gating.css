@@ -566,63 +566,37 @@ body {
 }
 
 /* Pending-account banner shown site-wide to customers awaiting approval.
-   Dismissable per session via sessionStorage. Rendered in layout/theme.liquid. */
+   Sits above the header; not dismissable. Rendered in layout/theme.liquid. */
 .pending-banner {
   display: block;
   background: var(--color-border-subtle);
   border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
 }
 
-.pending-banner[hidden] {
-  display: none;
-}
-
 .pending-banner__inner {
   display: flex;
-  align-items: center;
-  gap: var(--padding-3);
+  justify-content: center;
   padding-top: var(--padding-3);
   padding-bottom: var(--padding-3);
 }
 
 .pending-banner__copy {
   margin: 0;
-  flex: 1;
   font-family: var(--font-body-family);
-  font-size: var(--type-small);
+  font-size: var(--type-body);
+  font-weight: 500;
   color: var(--color-text-secondary);
   line-height: 1.5;
+  text-align: center;
 }
 
-.pending-banner__copy strong {
-  font-weight: 600;
-  color: var(--color-text-primary);
+.pending-banner__lead,
+.pending-banner__sub {
+  display: inline;
 }
 
-.pending-banner__dismiss {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 3.2rem;
-  height: 3.2rem;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  border: 0;
-  color: var(--color-text-secondary);
-  cursor: pointer;
-  border-radius: var(--radius-sm);
-  transition: background-color 0.15s ease;
-}
-
-.pending-banner__dismiss:hover,
-.pending-banner__dismiss:focus-visible {
-  background: rgba(var(--color-foreground), 0.06);
-  outline: none;
-}
-
-.pending-banner__dismiss svg {
-  width: 1.4rem;
-  height: 1.4rem;
+.pending-banner__sub {
+  margin-left: 0.4rem;
+  opacity: 0.7;
 }
 
