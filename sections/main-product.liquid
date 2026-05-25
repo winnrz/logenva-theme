@@ -167,6 +167,9 @@
                     </span>
                     Pricing for verified practitioners
                   </div>
+                  <p class="product__gated-label-note">
+                    Trade pricing and ordering unlock once your practitioner credentials are verified.
+                  </p>
                 {%- endif -%}
                 {%- if product.quantity_price_breaks_configured? -%}
                   <div class="volume-pricing-note" id="Volume-Note-{{ section.id }}">
@@ -541,10 +544,7 @@
                     show_pickup_availability: true
                   -%}
                 {%- elsif longeva_state == 'pending' -%}
-                  <div class="product__gated-cta" {{ block.shopify_attributes }}>
-                    <span class="product__gated-status">Account is awaiting approval</span>
-                    <span class="product__gated-status-note">We'll email you once your account is verified, usually within one working day.</span>
-                  </div>
+                  {%- comment -%} Pending status conveyed by the site-wide banner — see snippets/pending-banner.liquid {%- endcomment -%}
                 {%- else -%}
                   <div class="product__gated-cta" {{ block.shopify_attributes }}>
                     <a href="/pages/practitioner-application" class="product__gated-link button button--full-width button--primary">

@@ -328,9 +328,7 @@
                 </span>
                 Pricing for verified practitioners
               </div>
-              {%- if longeva_state == 'pending' -%}
-                <span class="product-card__status" aria-disabled="true">Account is awaiting approval</span>
-              {%- endif -%}
+              {%- comment -%} Pending status conveyed by the site-wide banner — see snippets/pending-banner.liquid {%- endcomment -%}
             </div>
           {%- endif -%}
         {% assign product_form_id = 'quick-add-' | append: section_id | append: card_product.id %}

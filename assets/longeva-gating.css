@@ -211,9 +211,9 @@ main {
 
 .product-card-wrapper .product-card__gated-label {
   font-family: var(--font-body-family);
-  font-size: var(--type-body);
-  color: var(--color-border);
-  line-height: 1.2;
+  font-size: var(--type-small);
+  color: var(--color-text-secondary);
+  line-height: 1.3;
 }
 
 .product-card-wrapper .product-card__gated-label {
@@ -280,7 +280,7 @@ main {
   gap: var(--padding-2);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
-  color: var(--color-border);
+  color: var(--color-text-secondary);
   line-height: 1.2;
   margin: 0 0 var(--padding-1);
 }
@@ -288,6 +288,16 @@ main {
 .product__gated-label-icon {
   display: inline-flex;
   align-items: center;
+}
+
+.product__gated-label-note {
+  margin: var(--padding-1) 0 0;
+  max-width: 48ch;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  line-height: 1.5;
+  opacity: 0.85;
 }
 
 .product__gated-label-icon svg {
@@ -302,6 +312,21 @@ main {
 
 .product__gated-cta:has(.product__gated-link) {
   margin-top: var(--padding-3);
+}
+
+.product__gated-link {
+  color: var(--color-secondary);
+}
+
+.product__gated-link::before,
+.product__gated-link::after {
+  display: none;
+}
+
+.product__gated-link:hover,
+.product__gated-link:focus-visible {
+  background: var(--color-accent);
+  color: var(--color-secondary);
 }
 
 .product__gated-status {
@@ -538,5 +563,66 @@ body {
 
 .cart__locked--drawer .cart__locked-heading {
   font-size: var(--type-h4);
+}
+
+/* Pending-account banner shown site-wide to customers awaiting approval.
+   Dismissable per session via sessionStorage. Rendered in layout/theme.liquid. */
+.pending-banner {
+  display: block;
+  background: var(--color-border-subtle);
+  border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+}
+
+.pending-banner[hidden] {
+  display: none;
+}
+
+.pending-banner__inner {
+  display: flex;
+  align-items: center;
+  gap: var(--padding-3);
+  padding-top: var(--padding-3);
+  padding-bottom: var(--padding-3);
+}
+
+.pending-banner__copy {
+  margin: 0;
+  flex: 1;
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.pending-banner__copy strong {
+  font-weight: 600;
+  color: var(--color-text-primary);
+}
+
+.pending-banner__dismiss {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.15s ease;
+}
+
+.pending-banner__dismiss:hover,
+.pending-banner__dismiss:focus-visible {
+  background: rgba(var(--color-foreground), 0.06);
+  outline: none;
+}
+
+.pending-banner__dismiss svg {
+  width: 1.4rem;
+  height: 1.4rem;
 }
 
