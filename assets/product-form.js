@@ -94,6 +94,7 @@ if (!customElements.get('product-form')) {
               CartPerformance.measure("add:paint-updated-sections", () => {
                 this.cart.renderContents(response);
               });
+              this.flashAddedFeedback();
             }
           })
           .catch((e) => {
@@ -122,6 +123,19 @@ if (!customElements.get('product-form')) {
         if (errorMessage) {
           this.errorMessage.textContent = errorMessage;
         }
+      }
+
+      flashAddedFeedback() {
+        if (!this.submitButtonText) return;
+        if (!this._originalSubmitText) {
+          this._originalSubmitText = this.submitButtonText.textContent;
+        }
+        this.submitButtonText.textContent = 'Added ✓';
+        clearTimeout(this._addedFeedbackTimer);
+        this._addedFeedbackTimer = setTimeout(() => {
+          this.submitButtonText.textContent = this._originalSubmitText;
+          this._originalSubmitText = null;
+        }, 1500);
       }
 
       toggleSubmitButton(disable = true, text) {
