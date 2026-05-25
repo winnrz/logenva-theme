@@ -1,3 +1,20 @@
+{%- comment -%}
+  Canonical longeva customer state — mirrored in sections/main-product.liquid:1-13.
+{%- endcomment -%}
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+  if customer
+    assign longeva_state = 'pending'
+    if longeva_approved
+      assign longeva_state = 'approved'
+    endif
+  else
+    assign longeva_state = 'public'
+  endif
+-%}
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
@@ -31,6 +48,7 @@
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'global.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'longeva-session-guard.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'longeva-vat.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-disclosure.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
@@ -317,7 +335,12 @@
     </script>
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body
+    class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}"
+    data-longeva-approved="{{ longeva_approved }}"
+    data-longeva-state="{{ longeva_state }}"
+    data-cart-count="{{ cart.item_count }}"
+  >
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>

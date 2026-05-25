@@ -1,3 +1,21 @@
+{%- comment -%}
+  Canonical longeva customer state — mirrored in sections/main-product.liquid:1-13.
+{%- endcomment -%}
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+  if customer
+    assign longeva_state = 'pending'
+    if longeva_approved
+      assign longeva_state = 'approved'
+    endif
+  else
+    assign longeva_state = 'public'
+  endif
+-%}
+
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-cart-items.css' | asset_url | stylesheet_tag }}
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
@@ -51,7 +69,23 @@
     <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
       <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
         <div class="js-contents">
-          {%- if cart != empty -%}
+          {%- if cart != empty and longeva_approved == false -%}
+            <div class="cart__locked">
+              <h2 class="cart__locked-heading">Cart locked</h2>
+              <p class="cart__locked-copy">
+                Your cart will be available once your practitioner account is approved.
+              </p>
+              {%- if longeva_state == 'public' -%}
+                <a href="/pages/practitioner-application" class="button cart__locked-cta">
+                  Register as practitioner
+                </a>
+              {%- else -%}
+                <a href="{{ routes.root_url }}" class="button cart__locked-cta">
+                  Return home
+                </a>
+              {%- endif -%}
+            </div>
+          {%- elsif cart != empty -%}
             <table class="cart-items">
               <caption class="visually-hidden">
                 {{ 'sections.cart.title' | t }}

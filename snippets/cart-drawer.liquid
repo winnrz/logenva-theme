@@ -5,6 +5,24 @@
   {% render 'cart-drawer' %}
 {% endcomment %}
 
+{%- comment -%}
+  Canonical longeva customer state — mirrored in sections/main-product.liquid:1-13.
+{%- endcomment -%}
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+  if customer
+    assign longeva_state = 'pending'
+    if longeva_approved
+      assign longeva_state = 'approved'
+    endif
+  else
+    assign longeva_state = 'public'
+  endif
+-%}
+
 {{ 'quantity-popover.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 
@@ -86,7 +104,23 @@
           method="post"
         >
           <div id="CartDrawer-CartItems" class="drawer__contents js-contents">
-            {%- if cart != empty -%}
+            {%- if cart != empty and longeva_approved == false -%}
+              <div class="cart-drawer__locked cart__locked cart__locked--drawer">
+                <h2 class="cart__locked-heading">Cart locked</h2>
+                <p class="cart__locked-copy">
+                  Your cart will be available once your practitioner account is approved.
+                </p>
+                {%- if longeva_state == 'public' -%}
+                  <a href="/pages/practitioner-application" class="button cart__locked-cta">
+                    Register as practitioner
+                  </a>
+                {%- else -%}
+                  <a href="{{ routes.root_url }}" class="button cart__locked-cta">
+                    Return home
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- elsif cart != empty -%}
               <div class="drawer__cart-items-wrapper">
                 <table class="cart-items" role="table">
                   <thead role="rowgroup">
@@ -513,6 +547,7 @@
         <!-- Start blocks -->
         <!-- Subtotals -->
 
+        {%- if longeva_approved -%}
         <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
           <div>
             {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -573,23 +608,37 @@
             {%- endif -%}
           </small>
         </div>
+        {%- endif -%}
 
         <!-- CTAs -->
 
-        <div class="cart__ctas" {{ block.shopify_attributes }}>
-          <button
-            type="submit"
-            id="CartDrawer-Checkout"
-            class="cart__checkout-button button"
-            name="checkout"
-            form="CartDrawer-Form"
-            {% if cart == empty %}
+        {%- if longeva_approved -%}
+          <div class="cart__ctas" {{ block.shopify_attributes }}>
+            <button
+              type="submit"
+              id="CartDrawer-Checkout"
+              class="cart__checkout-button button"
+              name="checkout"
+              form="CartDrawer-Form"
+              {% if cart == empty %}
+                disabled
+              {% endif %}
+            >
+              {{ 'sections.cart.checkout' | t }}
+            </button>
+          </div>
+        {%- elsif cart != empty -%}
+          <div class="cart__ctas" {{ block.shopify_attributes }}>
+            <button
+              type="button"
+              class="cart__checkout-button button"
               disabled
-            {% endif %}
-          >
-            {{ 'sections.cart.checkout' | t }}
-          </button>
-        </div>
+              aria-disabled="true"
+            >
+              Checkout locked
+            </button>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>

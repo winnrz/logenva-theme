@@ -282,7 +282,7 @@ main {
   font-size: var(--type-body);
   color: var(--color-border);
   line-height: 1.2;
-  margin: 0;
+  margin: 0 0 var(--padding-1);
 }
 
 .product__gated-label-icon {
@@ -300,15 +300,19 @@ main {
   margin-top: 0;
 }
 
+.product__gated-cta:has(.product__gated-link) {
+  margin-top: var(--padding-3);
+}
+
 .product__gated-status {
   display: block;
   width: 100%;
-  padding: var(--padding-3) 0;
+  padding: 0;
   color: var(--color-border);
   font-family: var(--font-body-family);
   font-size: var(--type-body);
   font-weight: 400;
-  text-align: center;
+  text-align: left;
 }
 
 .product-card-wrapper .product-card__gated-status {
@@ -480,5 +484,48 @@ body {
 .product-form .product-form__input--pill input[type='radio']:not(:checked):hover + label,
 .product-form .product-form__input--pill input[type='radio']:focus-visible + label {
   border-color: var(--color-primary);
+}
+
+/* Cart locked state — shown to non-approved visitors who have items in their session cart.
+   Used by sections/main-cart-items.liquid and snippets/cart-drawer.liquid. */
+.cart__locked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--padding-3);
+  padding: var(--padding-7) var(--padding-5);
+  text-align: center;
+}
+
+.cart__locked-heading {
+  margin: 0;
+  font-family: var(--font-heading-family);
+  font-size: var(--type-h3);
+  color: var(--color-text-primary);
+  letter-spacing: 0;
+}
+
+.cart__locked-copy {
+  margin: 0;
+  max-width: 38ch;
+  font-family: var(--font-body-family);
+  font-size: var(--type-body);
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.cart__locked-cta {
+  margin-top: var(--padding-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart__locked--drawer {
+  padding: var(--padding-6) var(--padding-4);
+}
+
+.cart__locked--drawer .cart__locked-heading {
+  font-size: var(--type-h4);
 }
 

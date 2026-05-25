@@ -1,11 +1,21 @@
-{% if cart == empty %}
+{%- comment -%}
+  Canonical longeva customer state — mirrored in sections/main-product.liquid:1-13.
+{%- endcomment -%}
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+-%}
+
+{% if cart == empty or longeva_approved == false %}
   <span class="svg-wrapper">{{ 'icon-cart-empty.svg' | inline_asset_content }}</span>
 {% else %}
   <span class="svg-wrapper">{{ 'icon-cart.svg' | inline_asset_content }}</span>
 {% endif %}
 
 <span class="visually-hidden">{{ 'templates.cart.cart' | t }}</span>
-{%- if cart != empty -%}
+{%- if cart != empty and longeva_approved -%}
   <div class="cart-count-bubble">
     {%- if cart.item_count < 100 -%}
       <span aria-hidden="true">{{ cart.item_count }}</span>

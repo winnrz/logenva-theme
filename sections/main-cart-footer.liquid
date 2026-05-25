@@ -1,3 +1,13 @@
+{%- comment -%}
+  Canonical longeva customer state — mirrored in sections/main-product.liquid:1-13.
+{%- endcomment -%}
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+-%}
+
 {{ 'component-cart.css' | asset_url | stylesheet_tag }}
 {{ 'component-totals.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
@@ -43,6 +53,7 @@
             {%- when '@app' -%}
               {% render block %}
             {%- when 'subtotal' -%}
+              {%- if longeva_approved -%}
               <div class="js-contents" {{ block.shopify_attributes }}>
                 <div>
                   {%- if cart.cart_level_discount_applications.size > 0 -%}
@@ -103,25 +114,39 @@
                   {%- endif -%}
                 </small>
               </div>
+              {%- endif -%}
             {%- else -%}
-              <div class="cart__ctas" {{ block.shopify_attributes }}>
-                <button
-                  type="submit"
-                  id="checkout"
-                  class="cart__checkout-button button"
-                  name="checkout"
-                  {% if cart == empty %}
-                    disabled
-                  {% endif %}
-                  form="cart"
-                >
-                  {{ 'sections.cart.checkout' | t }}
-                </button>
-              </div>
+              {%- if longeva_approved -%}
+                <div class="cart__ctas" {{ block.shopify_attributes }}>
+                  <button
+                    type="submit"
+                    id="checkout"
+                    class="cart__checkout-button button"
+                    name="checkout"
+                    {% if cart == empty %}
+                      disabled
+                    {% endif %}
+                    form="cart"
+                  >
+                    {{ 'sections.cart.checkout' | t }}
+                  </button>
+                </div>
 
-              {%- if additional_checkout_buttons -%}
-                <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
-                  {{ content_for_additional_checkout_buttons }}
+                {%- if additional_checkout_buttons -%}
+                  <div class="cart__dynamic-checkout-buttons additional-checkout-buttons">
+                    {{ content_for_additional_checkout_buttons }}
+                  </div>
+                {%- endif -%}
+              {%- elsif cart != empty -%}
+                <div class="cart__ctas" {{ block.shopify_attributes }}>
+                  <button
+                    type="button"
+                    class="cart__checkout-button button"
+                    disabled
+                    aria-disabled="true"
+                  >
+                    Checkout locked
+                  </button>
                 </div>
               {%- endif -%}
           {%- endcase -%}
