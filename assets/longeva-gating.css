@@ -315,6 +315,17 @@ main {
   text-align: left;
 }
 
+.product__gated-status-note {
+  display: block;
+  margin-top: var(--padding-1);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  font-weight: 400;
+  text-align: left;
+  opacity: 0.75;
+}
+
 .product-card-wrapper .product-card__gated-status {
   font-family: var(--font-body-family);
   font-size: var(--type-body);
