@@ -398,15 +398,21 @@ main {
 }
 
 /* PDP Add to cart — white text on the dark base; on hover swap to accent
-   background with the warm border tone for the label, matching .gated-cta__button. */
+   background, keeping white for legibility (border tone is too close to accent). */
 .product-form__submit {
   color: var(--color-secondary);
+}
+
+.product-form__submit::before,
+.product-form__submit::after {
+  display: none;
 }
 
 .product-form__submit:not([disabled]):hover,
 .product-form__submit:not([disabled]):focus-visible {
   background-color: var(--color-accent);
-  color: var(--color-border);
+  color: var(--color-secondary);
+  box-shadow: none;
   outline: none;
 }
 
