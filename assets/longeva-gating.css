@@ -397,6 +397,19 @@ main {
   box-shadow: none;
 }
 
+/* PDP Add to cart — white text on the dark base; on hover swap to accent
+   background with the warm border tone for the label, matching .gated-cta__button. */
+.product-form__submit {
+  color: var(--color-secondary);
+}
+
+.product-form__submit:not([disabled]):hover,
+.product-form__submit:not([disabled]):focus-visible {
+  background-color: var(--color-accent);
+  color: var(--color-border);
+  outline: none;
+}
+
 /* Cart line item VAT note (e.g. "20% VAT added at checkout") */
 .cart-item__vat-note {
   margin: var(--padding-1) 0 0;
