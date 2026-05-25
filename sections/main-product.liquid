@@ -156,10 +156,10 @@
                       price_class: 'price--large'
                     -%}
                     <span class="product__price-vat">excl. VAT</span>
+                    {%- if longeva_is_clinic_pdp -%}
+                      <p class="product__vat-note">VAT calculated at checkout</p>
+                    {%- endif -%}
                   </div>
-                  {%- if longeva_is_clinic_pdp -%}
-                    <p class="product__vat-note">VAT calculated at checkout</p>
-                  {%- endif -%}
                 {%- else -%}
                   <div id="price-{{ section.id }}" role="status" class="product__gated-label" {{ block.shopify_attributes }}>
                     <span class="product__gated-label-icon">
