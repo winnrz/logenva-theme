@@ -57,6 +57,7 @@ h1,
   font-family: var(--font-heading-family);
   font-size: var(--type-h1);
   line-height: normal;
+  color: var(--color-text-secondary);
 }
 
 h2,
