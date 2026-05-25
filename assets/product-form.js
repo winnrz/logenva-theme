@@ -39,6 +39,9 @@ if (!customElements.get('product-form')) {
           );
           formData.append('sections_url', window.location.pathname);
           this.cart.setActiveElement(document.activeElement);
+        } else {
+          formData.append('sections', 'cart-icon-bubble');
+          formData.append('sections_url', window.location.pathname);
         }
         config.body = formData;
 
@@ -62,7 +65,23 @@ if (!customElements.get('product-form')) {
               this.error = true;
               return;
             } else if (!this.cart) {
-              window.location = window.routes.cart_url;
+              if (response.sections && response.sections['cart-icon-bubble']) {
+                const bubble = document.getElementById('cart-icon-bubble');
+                if (bubble) {
+                  const parsed = new DOMParser().parseFromString(
+                    response.sections['cart-icon-bubble'],
+                    'text/html'
+                  );
+                  const section = parsed.querySelector('.shopify-section');
+                  if (section) bubble.innerHTML = section.innerHTML;
+                }
+              }
+              publish(PUB_SUB_EVENTS.cartUpdate, {
+                source: 'product-form',
+                productVariantId: formData.get('id'),
+                cartData: response,
+              });
+              this.flashAddedFeedback();
               return;
             }
 
