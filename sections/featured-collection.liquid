@@ -8,12 +8,19 @@
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
 
-{%- unless section.settings.quick_add == 'none' -%}
+{%- liquid
+  assign longeva_approved = false
+  if customer.tags contains 'approved'
+    assign longeva_approved = true
+  endif
+-%}
+
+{%- if section.settings.quick_add != 'none' or longeva_approved -%}
   {{ 'quick-add.css' | asset_url | stylesheet_tag }}
   <script src="{{ 'product-form.js' | asset_url }}" defer="defer"></script>
-{%- endunless -%}
+{%- endif -%}
 
-{%- if section.settings.quick_add == 'standard' -%}
+{%- if section.settings.quick_add == 'standard' or longeva_approved -%}
   <script src="{{ 'quick-add.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
 
