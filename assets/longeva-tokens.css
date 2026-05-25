@@ -65,6 +65,7 @@ h2,
   font-family: var(--font-heading-family);
   font-size: var(--type-h2);
   line-height: normal;
+  color: var(--color-text-secondary);
 }
 
 h3,
@@ -72,6 +73,7 @@ h3,
   font-family: var(--font-heading-family);
   font-size: var(--type-h3);
   line-height: normal;
+  color: var(--color-text-secondary);
 }
 
 h4,
@@ -79,6 +81,7 @@ h4,
   font-family: var(--font-heading-family);
   font-size: var(--type-h4);
   line-height: normal;
+  color: var(--color-text-secondary);
 }
 
 body {
