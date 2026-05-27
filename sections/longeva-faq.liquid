@@ -1,0 +1,121 @@
+{{ 'section-longeva-faq.css' | asset_url | stylesheet_tag }}
+
+<section class="longeva-faq" aria-labelledby="longeva-faq-title-{{ section.id }}">
+  <div class="longeva-faq__inner page-width">
+    <header class="longeva-faq__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="longeva-faq__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="longeva-faq-title-{{ section.id }}" class="longeva-faq__title">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+    </header>
+
+    <div class="longeva-faq__list">
+      {%- for block in section.blocks -%}
+        <details class="longeva-faq__item" {{ block.shopify_attributes }}>
+          <summary class="longeva-faq__question">
+            <span>{{ block.settings.question }}</span>
+            <span class="longeva-faq__indicator" aria-hidden="true"></span>
+          </summary>
+          <div class="longeva-faq__answer rte">
+            {{ block.settings.answer }}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Longeva FAQ",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Frequently asked"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Questions, answered."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "qa",
+      "name": "Question",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Who can register?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Registration is open to UK-based aesthetic practitioners, medical professionals, and accredited training academies. We verify each applicant against the appropriate professional register (e.g. GMC, NMC, GPhC, GDC) before approving an account.</p>"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 20,
+  "presets": [
+    {
+      "name": "Longeva FAQ",
+      "blocks": [
+        {
+          "type": "qa",
+          "settings": {
+            "question": "Who can register?",
+            "answer": "<p>Registration is open to UK-based aesthetic practitioners, medical professionals, and accredited training academies. We verify each applicant against the appropriate professional register (e.g. GMC, NMC, GPhC, GDC) before approving an account.</p>"
+          }
+        },
+        {
+          "type": "qa",
+          "settings": {
+            "question": "How long does verification take?",
+            "answer": "<p>Most applications are reviewed within one to two business days. You will receive an email confirmation once your account has been approved.</p>"
+          }
+        },
+        {
+          "type": "qa",
+          "settings": {
+            "question": "Why can't I see prices or all products?",
+            "answer": "<p>Prescription-only medicines may not be advertised to the public under MHRA regulations, and trade pricing is reserved for verified practitioners. Both become visible once your account is approved.</p>"
+          }
+        },
+        {
+          "type": "qa",
+          "settings": {
+            "question": "What is the difference between a prescription order and clinic stock?",
+            "answer": "<p>Prescription orders are linked to a named patient and dispensed against a valid prescription — these lines are zero-rated for VAT. Clinic-stock orders are supplied to your practice without a patient-specific prescription and are subject to standard VAT. You select the basis at the basket stage.</p>"
+          }
+        },
+        {
+          "type": "qa",
+          "settings": {
+            "question": "How are orders dispatched?",
+            "answer": "<p>Orders are dispatched from our UK pharmacy via tracked, temperature-controlled courier. Cold-chain products are packed with appropriate insulation and shipped on next-day services where possible.</p>"
+          }
+        },
+        {
+          "type": "qa",
+          "settings": {
+            "question": "Where do you ship?",
+            "answer": "<p>We currently supply verified practitioners across the United Kingdom only.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

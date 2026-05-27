@@ -1,0 +1,130 @@
+{{ 'section-longeva-pillars.css' | asset_url | stylesheet_tag }}
+
+<section class="longeva-pillars" aria-labelledby="longeva-pillars-title-{{ section.id }}">
+  {%- comment -%} Section-scoped clip-path so we don't pollute theme.liquid {%- endcomment -%}
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <clipPath id="longeva-quatrefoil-{{ section.id }}" clipPathUnits="objectBoundingBox">
+        <path d="M0.5,0 C0.65,0 0.7,0.05 0.7,0.2 C0.7,0.27 0.73,0.3 0.8,0.3 C0.95,0.3 1,0.35 1,0.5 C1,0.65 0.95,0.7 0.8,0.7 C0.73,0.7 0.7,0.73 0.7,0.8 C0.7,0.95 0.65,1 0.5,1 C0.35,1 0.3,0.95 0.3,0.8 C0.3,0.73 0.27,0.7 0.2,0.7 C0.05,0.7 0,0.65 0,0.5 C0,0.35 0.05,0.3 0.2,0.3 C0.27,0.3 0.3,0.27 0.3,0.2 C0.3,0.05 0.35,0 0.5,0 Z"/>
+      </clipPath>
+    </defs>
+  </svg>
+
+  <div class="longeva-pillars__inner page-width">
+    <header class="longeva-pillars__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="longeva-pillars__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="longeva-pillars-title-{{ section.id }}" class="longeva-pillars__title">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+    </header>
+
+    <ul class="longeva-pillars__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="longeva-pillar" {{ block.shopify_attributes }}>
+          <div
+            class="longeva-pillar__media"
+            style="clip-path: url(#longeva-quatrefoil-{{ section.id }});"
+          >
+            {%- if block.settings.image != blank -%}
+              {{
+                block.settings.image
+                | image_url: width: 600
+                | image_tag:
+                  loading: 'lazy',
+                  width: block.settings.image.width,
+                  height: block.settings.image.height,
+                  alt: block.settings.image.alt
+              }}
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.title != blank -%}
+            <h3 class="longeva-pillar__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.copy != blank -%}
+            <p class="longeva-pillar__copy">{{ block.settings.copy }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Longeva pillars",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Why Longeva"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Built for clinicians, run as a pharmacy."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "pillar",
+      "name": "Pillar",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Pharmacy-led & GPhC-registered"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Every order is reviewed and dispensed under the oversight of a UK-registered responsible pharmacist."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Longeva pillars",
+      "blocks": [
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "Pharmacy-led & GPhC-registered",
+            "copy": "Every order is reviewed and dispensed under the oversight of a UK-registered responsible pharmacist."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "MHRA-licensed wholesale",
+            "copy": "Sourced, stored, and traced under MHRA WDA(H) controls — a documented chain from manufacturer to clinic."
+          }
+        },
+        {
+          "type": "pillar",
+          "settings": {
+            "title": "Built for clinicians",
+            "copy": "Prescription and clinic-stock orders are handled separately at checkout, with the correct VAT applied to each line."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -55,14 +55,15 @@
   max-width: 32ch;
 }
 
-/* Heading shared between columns */
+/* Heading shared between columns — gold caption-style per mockup */
 .longeva-footer__heading {
   font-family: var(--font-body-family);
-  font-size: var(--type-body);
-  font-weight: 600;
-  color: var(--color-border-subtle);
+  font-size: var(--type-small);
+  font-weight: 500;
+  color: var(--color-gold-light);
   margin: 0 0 var(--padding-5);
-  letter-spacing: 0;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
 /* Quick links */

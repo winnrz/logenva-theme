@@ -1,0 +1,98 @@
+{{ 'section-longeva-hero.css' | asset_url | stylesheet_tag }}
+
+<section class="longeva-hero" aria-labelledby="longeva-hero-title-{{ section.id }}">
+  <div class="longeva-hero__pattern" aria-hidden="true"></div>
+  <div class="longeva-hero__inner page-width">
+    {%- if section.settings.eyebrow != blank -%}
+      <span class="longeva-hero__eyebrow">{{ section.settings.eyebrow }}</span>
+    {%- endif -%}
+
+    {%- if section.settings.heading != blank -%}
+      <h1 id="longeva-hero-title-{{ section.id }}" class="longeva-hero__title">
+        {{ section.settings.heading }}
+      </h1>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="longeva-hero__sub">{{ section.settings.subheading }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.primary_cta_label != blank or section.settings.secondary_cta_label != blank -%}
+      <div class="longeva-hero__cta">
+        {%- if section.settings.primary_cta_label != blank -%}
+          <a
+            href="{{ section.settings.primary_cta_link | default: '/pages/practitioner-application' }}"
+            class="longeva-hero__btn longeva-hero__btn--primary"
+          >
+            {{ section.settings.primary_cta_label }}
+          </a>
+        {%- endif -%}
+
+        {%- if section.settings.secondary_cta_label != blank -%}
+          <a
+            href="{{ section.settings.secondary_cta_link | default: '/account/login' }}"
+            class="longeva-hero__btn longeva-hero__btn--secondary"
+          >
+            {{ section.settings.secondary_cta_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Longeva hero",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Longeva Pharmacy"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Pharmacy-led aesthetics for verified UK clinicians."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Sub heading",
+      "default": "Prescription-only medicines and practitioner-only supplies, dispensed and dispatched from our GPhC-registered UK pharmacy. Trade access is granted once your professional credentials are verified."
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary CTA label",
+      "default": "Register as a practitioner"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary CTA link",
+      "info": "Defaults to /pages/practitioner-application."
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary CTA label",
+      "default": "Already verified? Sign in"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary CTA link",
+      "info": "Defaults to /account/login."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Longeva hero"
+    }
+  ]
+}
+{% endschema %}

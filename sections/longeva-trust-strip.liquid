@@ -3,10 +3,17 @@
 <aside class="longeva-trust-strip" role="complementary" aria-label="Trust signals">
   <div class="longeva-trust-strip__inner page-width">
     <ul class="longeva-trust-strip__list" role="list">
-      <li class="longeva-trust-strip__item">GPhC Registered</li>
-      <li class="longeva-trust-strip__item">MHRA Approved</li>
-      <li class="longeva-trust-strip__item">Pharmacy-led &amp; traceable</li>
-      <li class="longeva-trust-strip__item">Verified practitioners only</li>
+      {%- for block in section.blocks -%}
+        <li class="longeva-trust-strip__item" {{ block.shopify_attributes }}>
+          <span class="longeva-trust-strip__icon" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6">
+              <path d="M8 1 L14 4 V8 C14 11.5 11.5 13.8 8 15 C4.5 13.8 2 11.5 2 8 V4 Z"/>
+              <path d="M5.5 8 L7.2 9.7 L10.7 6.2" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="longeva-trust-strip__label">{{ block.settings.label }}</span>
+        </li>
+      {%- endfor -%}
     </ul>
   </div>
 </aside>
@@ -15,6 +22,32 @@
 {
   "name": "Longeva trust strip",
   "tag": "section",
-  "settings": []
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "GPhC Registered Pharmacy"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Longeva trust strip",
+      "blocks": [
+        { "type": "item", "settings": { "label": "GPhC Registered Pharmacy" } },
+        { "type": "item", "settings": { "label": "MHRA WDA(H) Licensed" } },
+        { "type": "item", "settings": { "label": "UK Pharmacy-Led" } },
+        { "type": "item", "settings": { "label": "Verified Practitioners Only" } }
+      ]
+    }
+  ]
 }
 {% endschema %}

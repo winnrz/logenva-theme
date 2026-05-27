@@ -1,19 +1,14 @@
 /*
  * Longeva trust strip
- * Slim band of brand-affirming statements that bridges the white page content
- * to the dark-brown footer. Cream backdrop (--color-border-subtle), dark-brown
- * text, hairline dividers between items.
+ * Beige band of credential statements. Shield-check icon in gold + label.
+ * Wraps gracefully; stacks on narrow viewports.
  */
 
-/* margin-top creates the deliberate gap between the page's product grid and the
-   trust band — large enough to feel like a hand-off, not so large it reads as
-   empty space. Internal padding makes the band itself feel composed, not pinched. */
 .longeva-trust-strip {
-  background-color: var(--color-border-subtle);
+  background-color: var(--color-bg-alt);
   color: var(--color-text-secondary);
-  border-top: 0.6px solid color-mix(in srgb, var(--color-border) 50%, white);
-  border-bottom: 0.6px solid color-mix(in srgb, var(--color-border) 50%, white);
-  margin-top: var(--padding-9);
+  border-top: 1px solid var(--rule-light);
+  border-bottom: 1px solid var(--rule-light);
 }
 
 .longeva-trust-strip__inner {
@@ -28,39 +23,36 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: var(--padding-8);
+  gap: var(--padding-5) var(--padding-8);
   flex-wrap: wrap;
 }
 
 .longeva-trust-strip__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-3);
   font-family: var(--font-body-family);
-  font-size: var(--type-body);
+  font-size: var(--type-small);
   font-weight: 500;
+  letter-spacing: 0.04em;
   color: var(--color-text-secondary);
-  position: relative;
-  text-align: center;
 }
 
-/* Hairline divider between adjacent items — sits to the left of every item
-   except the first, so it reads as a "between" mark rather than a leading rule. */
-.longeva-trust-strip__item + .longeva-trust-strip__item::before {
-  content: '';
-  position: absolute;
-  left: calc(var(--padding-8) * -0.5);
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 1em;
-  background-color: color-mix(in srgb, var(--color-text-secondary) 30%, transparent);
+.longeva-trust-strip__icon {
+  display: inline-flex;
+  width: 16px;
+  height: 16px;
+  color: var(--color-accent);
+}
+
+.longeva-trust-strip__icon svg {
+  width: 100%;
+  height: 100%;
 }
 
 @media screen and (max-width: 749px) {
   .longeva-trust-strip__list {
-    gap: var(--padding-4);
     flex-direction: column;
-  }
-  /* Dividers don't make sense in a vertical stack — hide them on mobile. */
-  .longeva-trust-strip__item + .longeva-trust-strip__item::before {
-    display: none;
+    gap: var(--padding-4);
   }
 }

@@ -1,0 +1,130 @@
+/*
+ * Longeva category cards — two-up grid showcasing product ranges.
+ * Each card: title + verified-access lock chip + description + arrow CTA.
+ * Hover lifts border to gold and nudges the arrow.
+ */
+
+.longeva-categories {
+  padding-block: clamp(48px, 8vw, 96px);
+}
+
+.longeva-categories__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--padding-9);
+}
+
+.longeva-categories__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--padding-4);
+}
+
+.longeva-categories__title {
+  margin: 0 0 var(--padding-5);
+}
+
+.longeva-categories__lede {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: var(--type-body);
+}
+
+.longeva-categories__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--padding-6);
+}
+
+.longeva-categories__item {
+  display: flex;
+}
+
+.longeva-category {
+  background: var(--color-secondary);
+  border: 1px solid var(--rule-light);
+  border-radius: var(--radius-md);
+  padding: var(--padding-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-5);
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.longeva-category:hover,
+.longeva-category:focus-visible {
+  border-color: var(--color-accent);
+}
+
+.longeva-category__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--padding-5);
+}
+
+.longeva-category__title {
+  margin: 0;
+  line-height: 1.1;
+}
+
+.longeva-category__lock {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-2);
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+.longeva-category__lock svg {
+  width: 13px;
+  height: 13px;
+}
+
+.longeva-category__desc {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+.longeva-category__cta {
+  margin-top: var(--padding-3);
+  font-family: var(--font-body-family);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+  font-size: var(--type-body);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--padding-3);
+}
+
+.longeva-category__cta::after {
+  content: "→";
+  transition: transform 0.2s ease;
+}
+
+.longeva-category:hover .longeva-category__cta::after,
+.longeva-category:focus-visible .longeva-category__cta::after {
+  transform: translateX(4px);
+}
+
+@media screen and (max-width: 749px) {
+  .longeva-categories__grid {
+    grid-template-columns: 1fr;
+  }
+}

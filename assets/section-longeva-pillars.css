@@ -1,0 +1,79 @@
+/*
+ * Longeva pillars — three quatrefoil-clipped tiles on a beige canvas.
+ * The clip-path is defined inline within the section markup so the
+ * shape lives with its consumer, not in the global theme shell.
+ */
+
+.longeva-pillars {
+  background: var(--color-bg-alt);
+  padding-block: clamp(48px, 8vw, 96px);
+}
+
+.longeva-pillars__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--padding-9);
+}
+
+.longeva-pillars__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin: 0 0 var(--padding-4);
+}
+
+.longeva-pillars__title {
+  margin: 0;
+}
+
+.longeva-pillars__grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--padding-9) var(--padding-8);
+}
+
+.longeva-pillar {
+  text-align: center;
+}
+
+.longeva-pillar__media {
+  width: 180px;
+  height: 180px;
+  margin: 0 auto var(--padding-6);
+  background: var(--color-border-subtle);
+  overflow: hidden;
+  position: relative;
+}
+
+.longeva-pillar__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.longeva-pillar__title {
+  margin: 0 0 var(--padding-4);
+}
+
+.longeva-pillar__copy {
+  color: var(--color-text-muted);
+  margin: 0;
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 989px) {
+  .longeva-pillars__grid {
+    grid-template-columns: 1fr;
+    max-width: 440px;
+    margin: 0 auto;
+    gap: var(--padding-8);
+  }
+}

@@ -1,0 +1,45 @@
+/*
+ * Longeva header overlay
+ * CSS-only restyling of Dawn's header so we don't fork sections/header.liquid.
+ * Loaded after base.css and longeva-tokens.css, so these selectors land on top.
+ *
+ * Scope is intentionally narrow — only properties that brand Dawn's header
+ * (colours, borders, hover affordance). Layout grid, sticky behaviour,
+ * mobile drawer toggling all stay with Dawn.
+ */
+
+/* Wrapper / border */
+.header-wrapper {
+  background: var(--color-secondary);
+  border-bottom: 1px solid var(--rule-light);
+}
+
+/* Brand wordmark uses Owners XWide */
+.header__heading,
+.header__heading-link {
+  font-family: var(--font-heading-family);
+  color: var(--color-text-secondary);
+}
+
+.header__heading-logo-wordmark {
+  font-family: var(--font-heading-family);
+  color: var(--color-text-secondary);
+}
+
+/* Primary nav links — brown text, Dawn's default underline on hover. */
+.header__menu-item {
+  font-family: var(--font-body-family);
+  font-weight: 500;
+  color: var(--color-text-secondary);
+}
+
+/* Header icons (search, account, cart) — keep brown */
+.header__icon,
+.header__icon--account,
+.header__icon--cart {
+  color: var(--color-text-secondary);
+}
+
+.header__icon:hover {
+  color: var(--color-accent);
+}

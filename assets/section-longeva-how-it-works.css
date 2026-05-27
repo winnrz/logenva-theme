@@ -1,0 +1,92 @@
+/*
+ * Longeva how-it-works — dark canvas, 4 numbered steps in gold circles.
+ * Stacks 4 → 2 → 1 as viewport narrows.
+ */
+
+.longeva-how {
+  background: var(--color-bg-dark);
+  color: var(--color-text-on-dark);
+  padding-block: clamp(48px, 8vw, 96px);
+}
+
+.longeva-how__head {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto var(--padding-9);
+}
+
+.longeva-how__eyebrow {
+  font-family: var(--font-body-family);
+  font-size: var(--type-small);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-gold-light);
+  margin: 0 0 var(--padding-4);
+}
+
+.longeva-how__title {
+  color: var(--color-text-on-dark);
+  margin: 0 0 var(--padding-5);
+}
+
+.longeva-how__lede {
+  color: rgba(242, 230, 220, 0.75);
+  margin: 0;
+  font-size: var(--type-body);
+}
+
+.longeva-how__steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--padding-7);
+}
+
+.longeva-step {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.longeva-step__num {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-text-on-dark);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading-family);
+  font-weight: 600;
+  font-size: var(--type-body);
+  margin-bottom: var(--padding-6);
+}
+
+.longeva-step__title {
+  color: var(--color-text-on-dark);
+  margin: 0 0 var(--padding-3);
+}
+
+.longeva-step__copy {
+  color: rgba(242, 230, 220, 0.7);
+  margin: 0;
+  font-size: var(--type-body);
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 989px) {
+  .longeva-how__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--padding-8);
+  }
+}
+
+@media screen and (max-width: 559px) {
+  .longeva-how__steps {
+    grid-template-columns: 1fr;
+  }
+}

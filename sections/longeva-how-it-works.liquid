@@ -1,0 +1,127 @@
+{{ 'section-longeva-how-it-works.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="longeva-how"
+  id="{{ section.settings.anchor_id | default: 'how-it-works' }}"
+  aria-labelledby="longeva-how-title-{{ section.id }}"
+>
+  <div class="longeva-how__inner page-width">
+    <header class="longeva-how__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="longeva-how__eyebrow">{{ section.settings.eyebrow }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 id="longeva-how-title-{{ section.id }}" class="longeva-how__title">
+          {{ section.settings.heading }}
+        </h2>
+      {%- endif -%}
+      {%- if section.settings.lede != blank -%}
+        <p class="longeva-how__lede">{{ section.settings.lede }}</p>
+      {%- endif -%}
+    </header>
+
+    <ol class="longeva-how__steps" role="list">
+      {%- for block in section.blocks -%}
+        <li class="longeva-step" {{ block.shopify_attributes }}>
+          <span class="longeva-step__num" aria-hidden="true">{{ forloop.index }}</span>
+          {%- if block.settings.title != blank -%}
+            <h3 class="longeva-step__title">{{ block.settings.title }}</h3>
+          {%- endif -%}
+          {%- if block.settings.copy != blank -%}
+            <p class="longeva-step__copy">{{ block.settings.copy }}</p>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Longeva how it works",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Getting started"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How verification and ordering works."
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Lede",
+      "default": "A short, deliberate process designed around regulated supply."
+    },
+    {
+      "type": "text",
+      "id": "anchor_id",
+      "label": "Anchor ID",
+      "info": "Used for in-page links (e.g. nav anchor 'how-it-works').",
+      "default": "how-it-works"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Register"
+        },
+        {
+          "type": "textarea",
+          "id": "copy",
+          "label": "Copy",
+          "default": "Submit your name, business details, and proof of professional registration."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Longeva how it works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "title": "Register",
+            "copy": "Submit your name, business details, and proof of professional registration through our practitioner form."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Verification",
+            "copy": "Our pharmacy team reviews your credentials, typically within one to two business days."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Order",
+            "copy": "Once approved, browse the full catalogue at trade pricing and order on prescription or for clinic stock."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "title": "Dispatch",
+            "copy": "Tracked, temperature-controlled dispatch from our UK pharmacy, with status updates at every stage."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

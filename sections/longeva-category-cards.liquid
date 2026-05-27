@@ -1,0 +1,140 @@
+{{ 'section-longeva-category-cards.css' | asset_url | stylesheet_tag }}
+
+<section class="longeva-categories" aria-labelledby="longeva-categories-title-{{ section.id }}">
+  <div class="longeva-categories__inner page-width">
+    {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.lede != blank -%}
+      <header class="longeva-categories__head">
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="longeva-categories__eyebrow">{{ section.settings.eyebrow }}</p>
+        {%- endif -%}
+        {%- if section.settings.heading != blank -%}
+          <h2 id="longeva-categories-title-{{ section.id }}" class="longeva-categories__title">
+            {{ section.settings.heading }}
+          </h2>
+        {%- endif -%}
+        {%- if section.settings.lede != blank -%}
+          <p class="longeva-categories__lede">{{ section.settings.lede }}</p>
+        {%- endif -%}
+      </header>
+    {%- endif -%}
+
+    <ul class="longeva-categories__grid" role="list">
+      {%- for block in section.blocks -%}
+        <li class="longeva-categories__item" {{ block.shopify_attributes }}>
+          <a class="longeva-category" href="{{ block.settings.link | default: '#' }}">
+            <div class="longeva-category__top">
+              <h3 class="longeva-category__title">{{ block.settings.title }}</h3>
+              {%- if block.settings.lock_label != blank -%}
+                <span class="longeva-category__lock">
+                  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+                    <rect x="3.5" y="7" width="9" height="6.5" rx="1.2"/>
+                    <path d="M5.5 7 V4.8 C5.5 3.3 6.6 2.2 8 2.2 C9.4 2.2 10.5 3.3 10.5 4.8 V7"/>
+                  </svg>
+                  {{ block.settings.lock_label }}
+                </span>
+              {%- endif -%}
+            </div>
+
+            {%- if block.settings.description != blank -%}
+              <p class="longeva-category__desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+
+            {%- if block.settings.cta_label != blank -%}
+              <span class="longeva-category__cta">{{ block.settings.cta_label }}</span>
+            {%- endif -%}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Longeva category cards",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "What we supply"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Two ranges. Verified access."
+    },
+    {
+      "type": "textarea",
+      "id": "lede",
+      "label": "Lede",
+      "default": "Our catalogue is reserved for registered clinicians. Browse the ranges below — full product details and trade pricing become available once your credentials are verified."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Category card",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Injectables"
+        },
+        {
+          "type": "text",
+          "id": "lock_label",
+          "label": "Lock chip label",
+          "default": "Verified access"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Prescription-only medicines for licensed practitioners. Products and pricing are hidden from public view in line with MHRA advertising regulations."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "CTA label",
+          "default": "View injectables"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "Longeva category cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Injectables",
+            "lock_label": "Verified access",
+            "description": "Prescription-only medicines for licensed practitioners. Products and pricing are hidden from public view in line with MHRA advertising regulations.",
+            "cta_label": "View injectables"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Skin Boosters",
+            "lock_label": "Verified access",
+            "description": "Hyaluronic-acid treatments supplied for hydration and skin quality. Visible to registered practitioners; pricing shown once verified.",
+            "cta_label": "View skin boosters"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

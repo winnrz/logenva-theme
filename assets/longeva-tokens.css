@@ -6,7 +6,7 @@
 
 :root {
   /* Colours */
-  --color-border: #9b8979; 
+  --color-border: #9b8979;
   --color-border-subtle: #f2e6dc;
   --color-focus: #a6783c;
   --color-primary: #b99157;
@@ -16,6 +16,16 @@
   --color-accent: #a6783c;
   --color-error: #e74c3c;
   --color-success: #4caf50;
+
+  /* Semantic surface aliases — for sections that need a dark or beige canvas */
+  --color-bg: #ffffff;
+  --color-bg-alt: var(--color-border-subtle);
+  --color-bg-dark: var(--color-text-secondary);
+  --color-text-on-dark: var(--color-border-subtle);
+  --color-text-muted: #6b5b50;
+  --color-gold-light: var(--color-primary);
+  --rule-light: rgba(45, 25, 14, 0.12);
+  --rule-on-dark: rgba(242, 230, 220, 0.18);
 
   /* Radii */
   --radius-sm: 5px;
