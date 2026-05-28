@@ -89,4 +89,9 @@
   .longeva-how__steps {
     grid-template-columns: 1fr;
   }
+
+  .longeva-step {
+    align-items: center;
+    text-align: center;
+  }
 }
